@@ -1,2 +1,4 @@
 # Trishell
-Projet UNIX/SHELL Licence 3 Jean Perrin
+Run ./build.sh
+
+See trishell -version or trishell -help
