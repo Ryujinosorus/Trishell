@@ -1,0 +1,56 @@
+#!/bin/sh
+
+# Sort entry files of a directory
+
+# Copyright (C) 2020 Free Software Foundation, Inc.
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 1 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+
+#AUTHOR : Es-sebbani Naim, Guestin Jason, Jinhuo Li
+
+version="trishell 1.0
+Copyright (C) 2020 Free Software Foundation, Inc.
+This is free software.  You may redistribute copies of it under the terms of
+the GNU General Public License <https://www.gnu.org/licenses/gpl.html>.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Es-sebbani Naim, Guestin Jason, Jinhuo Li."
+
+usage="Usage: $0 [-R] [-nsmleptg] dir
+Sort FILEs (by default, ascending order).
+
+You can use all this option
+
+    -R,         sort the contents of the tree starting at the directory dir. In this case we will sort according to the entry names but the path will be display(ed)?,
+    -d,         sorting in descending order, by default sorting is done in ascending order,
+    -n,         sort according to the entry name,
+    -s,         sort by entry size,
+    -m,         sort according to the last modification date of the entries,
+    -l,         sort according to the number of rows of entries,
+    -e,         sort according to the extension of the entries (characters found after the last point of the entry name),
+    -p,         sort by the name of the entry owner,
+    -t,         sort according to the type of file (order: directory, file, links, block type special file, file special type character, named pipe, socket),
+    -g,         sort by the name of the entry group,
+    -help       display this help and exit
+    -version    display version information and exit
+
+
+Report bugs to <naimessebbani@gmail.com>."
+
+case $1 in
+-help)    printf '%s\n' "$usage"   || exit 1; exit;;
+-version) printf '%s\n' "$version" || exit 1; exit;;
+esac
+
+#START OF PROG
