@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 
-#AUTHOR : Es-sebbani Naim, Guestin Jason, Jinhuo Li
+#AUTHOR : Es-sebbani Naim, Guestin Jason, Junhao Li
 
 version="trishell 1.0
 Copyright (C) 2020 Free Software Foundation, Inc.
@@ -25,7 +25,7 @@ This is free software.  You may redistribute copies of it under the terms of
 the GNU General Public License <https://www.gnu.org/licenses/gpl.html>.
 There is NO WARRANTY, to the extent permitted by law.
 
-Written by Es-sebbani Naim, Guestin Jason, Jinhuo Li."
+Written by Es-sebbani Naim, Guestin Jason, Junhao Li."
 
 usage="Usage: $0 [-R] [-nsmleptg] dir
 Sort FILEs (by default, ascending order).
