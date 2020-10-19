@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Sort entry files of a directory
 
@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 
-#AUTHOR : Es-sebbani Naim, Guestin Jason, Junhao Li
+#AUTHOR : Es-sebbani Naim, Guestin Jason, Jinhuo Li
 
 version="trishell 1.0
 Copyright (C) 2020 Free Software Foundation, Inc.
@@ -25,10 +25,10 @@ This is free software.  You may redistribute copies of it under the terms of
 the GNU General Public License <https://www.gnu.org/licenses/gpl.html>.
 There is NO WARRANTY, to the extent permitted by law.
 
-Written by Es-sebbani Naim, Guestin Jason, Junhao Li."
+Written by Es-sebbani Naim, Guestin Jason, Jinhuo Li."
 
 usage="Usage: $0 [-R] [-nsmleptg] dir
-Sort FILEs (by default, ascending order).
+Sort entry files (by default, ascending order).
 
 You can use all this option
 
@@ -53,4 +53,48 @@ case $1 in
 -version) printf '%s\n' "$version" || exit 1; exit;;
 esac
 
+if [ $# -gt 4 ]
+then
+    echo "Trop d'arguments"
+    exit 1
+fi
+
+#INIT VAR
+asc=true
+display=false
+sortOrder="NULL"
+path="NULL"
+
+
+#READ ARG
+for i in $*
+do
+    if [ $i = "-R" ]
+    then
+        test $display = true && echo "Doublon dans les parametres" && exit 2 
+        display=true
+    elif [ $i = "-d" ]
+    then
+        test $asc = false && echo "Doublon dans les parametres" && exit 2 
+        asc=false
+    elif [[ $i =~ ^[^-] ]]
+    then
+        ! test -d "$i" && echo "Chemin incorrect" && exit 4
+        test $path != NULL && echo "Doublon dans les parametres" && exit 2 
+        path=$i
+    else
+        test $sortOrder != NULL && echo "Doublon dans les parametres" && exit 2 
+        sortOrder=$i
+    fi
+done
+
+test $path = NULL && echo "Veuillez indiquer  un chemin" && exit 3
+
+for i in $(seq 2 ${#sortOrder}); do
+     char=$(echo $sortOrder | cut -c$i)
+     if [[ $char =~ [^n,s,m,l,e,p,t,g] ]]
+     then
+        echo "Param de tri pas bon" && exit 5
+     fi
+done
 #START OF PROG
