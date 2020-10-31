@@ -63,8 +63,8 @@ fi
 asc=true
 display=false
 sortOrder="NULL"
+sortLength=0
 path="NULL"
-
 
 #READ ARG
 for i in $*
@@ -95,6 +95,109 @@ for i in $(seq 2 ${#sortOrder}); do
      if [[ $char =~ [^n,s,m,l,e,p,t,g] ]]
      then
         echo "Param de tri pas bon" && exit 5
+    else 
+        sortLength=$(($sortLength+1))
      fi
 done
+
+
+
 #START OF PROG
+
+cd $path
+
+allData=""
+sizeOfAllData=0
+for i in *
+do
+    allData="$i/$allData"
+    sizeOfAllData=$(($sizeOfAllData+1))
+done
+allData=${allData%?}
+
+#TRI RAPIDE EN C 
+
+#void tri_rapide (int *tableau, int taille) {
+#    int mur, courant, pivot, tmp;
+#     if (taille < 2) return;
+#     // On prend comme pivot l element le plus a droite
+#     pivot = tableau[taille - 1];
+#      mur  = courant = 0;
+#       while (courant<taille) {
+#      if (tableau[courant] <= pivot) {
+#           if (mur != courant) {
+#               tmp=tableau[courant];
+#               tableau[courant]=tableau[mur];
+#               tableau[mur]=tmp;              
+#            }
+#            mur ++;
+#      }
+#      courant ++;
+#     }
+#     tri_rapide(tableau, mur - 1);
+#     tri_rapide(tableau + mur - 1, taille - mur + 1);
+# }
+
+
+doHeIsBigger(){
+    #GROS SWITCH SA MERE PLUS TARD
+    if test $1 \< $2 
+    then
+        echo 0
+    else
+        echo 1
+    fi
+}
+
+permute(){
+    #ATTENTION ERREUR AVEC LES DOUBLONS !
+    local firstVal=$2
+    local secondVal=$3
+    IFS=/
+    res=""
+    for i in $1
+    do
+        if [[ $i = $firstVal ]]
+        then
+            res="$res/$secondVal"
+        elif [[ $i = $secondVal ]]
+        then 
+            res="$res/$firstVal"
+        else
+            res="$res/$i"
+        fi
+    done
+    IFS=$OLDIFS
+    res="${res:1}"
+    echo $res
+}
+
+fastSort(){
+    [ $2 -lt 2 ] && echo "$1" && exit 1
+
+    local tab=$1
+    pivot=`echo $tab | cut -d'/' -f$2`
+    mur=0
+    courant=$3
+    while [ $courant -lt $2 ]
+    do
+        currentData=`echo $tab | cut -d'/' -f$(($courant+1))`
+        if [ `doHeIsBigger $curentData $pivot 0` = 1 ]
+        then
+            if [ $mur -ne $courant ]
+            then
+                #PERMUTER CURENTDATA AVEC TABLEAU[MUR]
+                murData=`echo $tab | cut -d'/' -f$(($mur+1))`
+                #echo "le tab est $tab permutation de $murData avec $currentData"
+                tab=`permute $tab $currentData $murData`
+            fi
+            mur=$(($mur+1))
+        fi
+        courant=$(($courant+1))
+    done
+    fastSort $tab $(($mur-1)) 0
+    fastSort $tab $(($2-$mur+1)) $(($mur+1))
+}
+
+echo $allData
+fastSort $allData $sizeOfAllData 0
