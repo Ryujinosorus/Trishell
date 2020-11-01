@@ -52,10 +52,12 @@ case $1 in
 -help)    printf '%s\n' "$usage"   || exit 1; exit;;
 -version) printf '%s\n' "$version" || exit 1; exit;;
 esac
-
+firstIFS=$IFS
+IFS=\ 
 if [ $# -gt 4 ]
 then
     echo "Trop d'arguments"
+    IFS=$firstIFS
     exit 1
 fi
 
@@ -79,8 +81,8 @@ do
         asc=false
     elif [[ $i =~ ^[^-] ]]
     then
-        ! test -d "$i" && echo "Chemin incorrect" && exit 4
         test $path != NULL && echo "Doublon dans les parametres" && exit 2 
+        ! test -d "$i" && echo "Chemin incorrect" && exit 4
         path=$i
     else
         test $sortOrder != NULL && echo "Doublon dans les parametres" && exit 2 
@@ -89,18 +91,6 @@ do
 done
 
 test $path = NULL && echo "Veuillez indiquer  un chemin" && exit 3
-
-for i in $(seq 2 ${#sortOrder}); do
-     char=$(echo $sortOrder | cut -c$i)
-     if [[ $char =~ [^n,s,m,l,e,p,t,g] ]]
-     then
-        echo "Param de tri pas bon" && exit 5
-    else 
-        sortLength=$(($sortLength+1))
-     fi
-done
-
-
 
 #START OF PROG
 
@@ -120,54 +110,90 @@ allData=${allData%?}
 
 
 
-#COMPARAISON FONCTION
+#FONCTION DE FONCTION
+#Tout le temps le meme principe
+#Renvoie 1 si $1 < $2, 0 si $1 > $2, 2 si $1=$2
+
 nameComp(){
     if test $1 \< $2 
     then
         echo 1
     elif test $1 = $2
+    then
         echo 2
     else
         echo 0
     fi
 }
 
+sizeComp(){
+    echo 1
+}
+
+lastModifComp(){
+    echo 1
+}
+
+nbLinesComp(){
+    echo 1
+}
+
+extensionComp(){
+    echo 1
+}
+
+typeComp(){
+    echo 1
+}
+
+propComp(){
+    echo 1
+}
+
+groupComp(){
+    echo 1
+}
+
+#Fonction de base pour comparer
 doHeIsLower(){
     #On recupere le nom de la fonction de tri aproprié
-    char=`echo $sortOrder | cut -c$3`
+    local char=`echo $sortOrder | cut -c$(($3+2))`
+    local res
+    #On compare
     case $char in
-    n) funName="nameComp";;
-    s) funName="sizeComp";;
-    m) funName="lastModifComp";;
-    l) funName="nbLigneComp";;
-    e) funName="extendsionComp";;
-    t) funName="typeComp";;
-    p) funName="propComp";;
-    g) funName="groupComp";;
+    n) res=`nameComp $1 $2`;;
+    s) res=`sizeComp $1 $2`;;
+    m) res=`lastModifComp $1 $2`;;
+    l) res=`nbLinesComp $1 $2`;;
+    e) res=`extensionComp $1 $2`;;
+    t) res=`typeComp $1 $2`;;
+    p) res=`propComp $1 $2`;;
+    g) res=`groupComp $1 $2`;;
+    *) echo "Parametre de tri pas bon " && exit 10;;
     esac
     
-    #On recuper le plus petit
-    res=`$funName $1 $2`
-
     #Si il y a equalite
     if [ $res = 2 ]
     then
-        doHeIsLower $1 $2 $(($3+1))
-    fi
-    
+        echo "1"
+    else
+    #Sinon on affiche le resultat
+        echo "$res"
+    fi 
 }
 
 getLast(){
     local res=`echo $1 | cut -d'/' -f1`
     for i in $1
     do
-        if [ `doHeIsLower $i $res 1` = 1 ]
+        if [ `doHeIsLower "$i" "$res" 0` = 1 ]
         then
             res=$i
         fi
     done
-    echo $res
+    echo "$res"
 }
+
 tri(){
     test -z "$1" && return
     local res=`getLast "$1"`
@@ -177,4 +203,4 @@ tri(){
 
 IFS=/
 tri "$allData"
-IFS=$OLDIFS
+IFS=$firstIFS
