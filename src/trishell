@@ -251,7 +251,7 @@ typeSort(){
     elif test -S "$2"; then
         res2="7"
     else
-        res1="8"
+        res2="8"
     fi
 
     if [ $res1 -lt $res2 ]
