@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #AUTHOR : Es-sebbani Naim, Guestin Jason, Junhao Li
-
 # Sort entry files of a directory
 
 # Copyright (C) 2020 Free Software Foundation, Inc.
@@ -65,8 +64,8 @@ fi
 #INIT VAR
 asc=true
 display=false
-sortOrder="NULL"
-sortLength=0
+sortOrder="-n"
+sortLength=1
 path="NULL"
 
 #READ ARG
@@ -95,11 +94,6 @@ done
 
 test $path = NULL && echo "Veuillez indiquer  un chemin" && exit 3
 
-if [ $sortOrder = NULL ]
-then
-    sortOrder="-n"
-    sortLength=1
-fi
 
 #START OF PROG
 firstPath=`pwd`
