@@ -379,11 +379,15 @@ tri "$allData"
 IFS=\ 
 cd "$firstPath"
 
-IFS=:
-shift
-for i in $allFolder
-do
-    ./trishell "$i" $@
-done
+if test $display = true
+then
+    IFS=:
+    shift
+    for i in $allFolder
+    do
+        ./trishell "$i" $@
+    done
+fi
+
 
 IFS=$firstIFS
