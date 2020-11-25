@@ -48,16 +48,17 @@ You can use all this option
 
 Report bugs to <naimessebbani@gmail.com>."
 
-case $1 in
+case "$1" in
 -help)    printf '%s\n' "$usage"   || exit 1; exit;;
 -version) printf '%s\n' "$version" || exit 1; exit;;
 esac
+
 firstIFS=$IFS
 IFS=\ 
 if [ $# -gt 4 ]
 then
-    echo "Il y a trop d'argument, usage: $0 [-R] [-nsmleptg] dir"
-    IFS=$firstIFS
+    echo "Trop d'arguments"
+    IFS="$firstIFS"
     exit 1
 fi
 
@@ -71,38 +72,40 @@ path="NULL"
 #READ ARG
 for i in $*
 do
-    if [ $i = "-R" ]
+    if [ "$i" = "-R" ]
     then
-        test $display = true && echo "Le drapeau -R est en doublon dans les paramètres" && exit 2 
+        test "$display" = true && echo "Doublon dans les parametres" && exit 2 
         display=true
-    elif [ $i = "-d" ]
+    elif [ "$i" = "-d" ]
     then
-        test $asc = false && echo "Le drapeau -d est en doublon dans les paramètres" && exit 2 
+        test $asc = false && echo "Doublon dans les parametres" && exit 2 
         asc=false
-    elif [[ $i =~ ^[^-] ]]
+    elif [[ "$i" =~ ^[^-] ]]
     then
-        test $path != NULL && echo "Doublon dans les chemins spécifiés" && exit 2 
-        ! test -d "$i" && echo "Le chemin spécifié incorrect" && exit 4
-        path=$i
+        test "$path" != NULL && echo "Doublon dans les parametres" && exit 2 
+        ! test -d "$i" && echo "Chemin incorrect" && exit 4
+        path="$i"
     else
-        test $sortOrder != NULL && echo "Doublon dans les paramètres de tri" && exit 2 
-        sortOrder=$i
+        test $sortOrder != NULL && echo "Doublon dans les parametres" && exit 2 
+        sortOrder="$i"
         #On récup la longueur de la chaine, pour avoir le nombre de sort
         sortLength=${#sortOrder}
     fi
 done
 
-test $path = NULL && echo "Veuillez indiquer un chemin correct, usage: $0 [-R] [-nsmleptg] dir" && exit 3
+test $path = NULL && echo "Veuillez indiquer  un chemin" && exit 3
 
 #START OF PROG
-
-cd $path
+firstPath=`pwd`
+cd "$path"
 
 allData=""
 sizeOfAllData=0
+allFolder=""
 for i in *
 do
     allData="$i/$allData"
+    test -d "$i" && allFolder="`pwd`/$i:$allFolder"
     sizeOfAllData=$(($sizeOfAllData+1))
 done
 
@@ -329,18 +332,6 @@ getLowest(){
         g) res=`groupSort $1 $2`;;
         *) echo "Le paramètre de tri spécifié est invalide" && exit 10;;
         esac
-
-        #Si l'ordre décroissant est actif, alors on inverse 1 et 0
-        if [ $asc = false ]
-        then
-            if [ $res -eq 1 ]
-            then
-                res="0"
-            elif [ $res -eq 0 ]
-            then
-                res="1"
-            fi
-        fi
         
         #Si il y a egalité on passe au tri suivant
         if [ $res -eq 2 ]
@@ -349,7 +340,15 @@ getLowest(){
             echo `getLowest "$i" "$res" $tmp`
         else
         #Sinon on affiche le resultat
-            echo "$res"
+            if test $asc = "true"
+            then 
+                echo $res
+            elif test $res = 1
+            then 
+                echo 0
+            else
+                echo 1
+            fi
         fi
     fi
 }
@@ -360,7 +359,7 @@ getLast(){
     do
         if [ `getLowest "$i" "$res" 0` = 1 ]
         then
-            res=$i
+            res="$i"
         fi
     done
     echo "$res"
@@ -374,5 +373,17 @@ tri(){
 }
 
 IFS=/
+echo "Trishell : `pwd`"
 tri "$allData"
+
+IFS=\ 
+cd "$firstPath"
+
+IFS=:
+shift
+for i in $allFolder
+do
+    ./trishell "$i" $@
+done
+
 IFS=$firstIFS
