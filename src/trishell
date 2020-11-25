@@ -2,7 +2,6 @@
 
 #AUTHOR : Es-sebbani Naim, Guestin Jason, Junhao Li
 
-
 # Sort entry files of a directory
 
 # Copyright (C) 2020 Free Software Foundation, Inc.
@@ -19,7 +18,6 @@
 
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
-
 
 version="trishell 1.0
 Copyright (C) 2020 Free Software Foundation, Inc.
@@ -97,6 +95,12 @@ done
 
 test $path = NULL && echo "Veuillez indiquer  un chemin" && exit 3
 
+if [ $sortOrder = NULL ]
+then
+    sortOrder="-n"
+    sortLength=1
+fi
+
 #START OF PROG
 firstPath=`pwd`
 cd "$path"
@@ -110,6 +114,9 @@ do
     test -d "$i" && allFolder="`pwd`/$i:$allFolder"
     sizeOfAllData=$(($sizeOfAllData+1))
 done
+
+
+
 
 #FONCTIONS DE TRI
 #Tout le temps le meme principe
@@ -251,7 +258,7 @@ typeSort(){
     elif test -S "$2"; then
         res2="7"
     else
-        res2="8"
+        res1="8"
     fi
 
     if [ $res1 -lt $res2 ]
@@ -306,10 +313,7 @@ groupSort(){
 
 #Fonction de base pour comparer
 getLowest(){
-    if [ $sortOrder = NULL ]
-    then
-        echo 1
-    elif [ $3 -ge $sortLength ]
+    if [ $3 -ge $sortLength ]
     then
         echo 1
     else
@@ -384,6 +388,5 @@ then
         ./trishell "$i" $@
     done
 fi
-
 
 IFS=$firstIFS
