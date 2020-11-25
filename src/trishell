@@ -64,7 +64,7 @@ fi
 #INIT VAR
 asc=true
 display=false
-sortOrder="-n"
+sortOrder="NULL"
 sortLength=1
 path="NULL"
 
@@ -73,7 +73,7 @@ for i in $*
 do
     if [ "$i" = "-R" ]
     then
-        test "$display" = true && echo "Doublon dans les parametres" && exit 2 
+        test "$display" = true && echo "Doublon dans les parametres -R" && exit 2 
         display=true
     elif [ "$i" = "-d" ]
     then
@@ -94,6 +94,10 @@ done
 
 test $path = NULL && echo "Veuillez indiquer  un chemin" && exit 3
 
+if [ $sortOrder = NULL ]
+then
+    sortOrder="-n"
+fi
 
 #START OF PROG
 firstPath=`pwd`
@@ -192,8 +196,8 @@ extensionSort(){
     #chaine 1 et 2 sont les extensions
     # awk -F. separate the string by dot
     # print $NF will print the last one   
-    chaine1=echo "$1" | awk -F. '{print $NF}'
-    chaine2=echo "$2" | awk -F. '{print $NF}'
+    chaine1=`echo "$1" | awk -F. '{print $NF}'`
+    chaine2=`echo "$2" | awk -F. '{print $NF}'`
 
     if test $chaine1 \< $chaine2
     then
@@ -252,7 +256,7 @@ typeSort(){
     elif test -S "$2"; then
         res2="7"
     else
-        res1="8"
+        res2="8"
     fi
 
     if [ $res1 -lt $res2 ]
@@ -376,10 +380,14 @@ cd "$firstPath"
 if test $display = true
 then
     IFS=:
-    shift
     for i in $allFolder
     do
-        ./trishell "$i" $@
+        tmp=""
+        if test $asc = "false"
+        then 
+            tmp="-d"
+        fi
+        ./trishell "$i" $sortOrder -R $tmp
     done
 fi
 
