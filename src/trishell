@@ -189,19 +189,120 @@ nbLinesComp(){
 }
 
 extensionComp(){
-    echo 1
+    #chaine 1 et 2 sont les extensions
+    # awk -F. separate the string by dot
+    # print $NF will print the last one   
+    chaine1=echo "$1" | awk -F. '{print $NF}'
+    chaine2=echo "$2" | awk -F. '{print $NF}'
+
+    if test $chaine1 \< $chaine2
+    then
+        echo 1
+    elif test $chaine1 = $chaine2
+    then
+        echo 2
+    else
+        echo 0
+    fi
 }
 
 typeComp(){
-    echo 1
+    # Répertoire: valeur 1
+    # Fichier: valeur 2
+    # Lien symbolique: valeur 3
+    # Fichier bloc: valeur 4
+    # Fichier caractère: valeur 5
+    # Tube nommé: valeur 6
+    # Socket: valeur 7
+    # Le reste à la valeur 8.
+
+    local res1
+    local res2
+
+    if test -d "$1"; then
+        res1="1"
+    elif test -f "$1"; then
+        res1="2"
+    elif test -L "$1"; then
+        res1="3"
+    elif test -b "$1"; then
+        res1="4"
+    elif test -c "$1"; then
+        res1="5"
+    elif test -p "$1"; then
+        res1="6"
+    elif test -S "$1"; then
+        res1="7"
+    else
+        res1="8"
+    fi
+
+    if test -d "$2"; then
+        res2="1"
+    elif test -f "$2"; then
+        res2="2"
+    elif test -L "$2"; then
+        res2="3"
+    elif test -b "$2"; then
+        res2="4"
+    elif test -c "$2"; then
+        res2="5"
+    elif test -p "$2"; then
+        res2="6"
+    elif test -S "$2"; then
+        res2="7"
+    else
+        res1="8"
+    fi
+
+    if [ $res1 -lt $res2 ]
+    then
+        echo 1
+    elif [ $res1 -eq $res2 ]
+    then
+        echo 2
+    else
+        echo 0
+    fi
 }
 
 propComp(){
-    echo 1
+    # $1 $2 est le chemin de ce fichier ou répertoire
+    # compare the owner name of 2 files or folders.
+    # f5 user
+    # f6 group
+    chaine1=`stat "$1" | cut -d' ' -f5`
+    chaine2=`stat "$2" | cut -d' ' -f5`
+
+
+    if test $chaine1 \< $chaine2
+    then
+        echo 1
+    elif test $chaine1 = $chaine2
+    then
+        echo 2
+    else
+        echo 0
+    fi
 }
 
 groupComp(){
-    echo 1
+    # $1 $2 est le chemin de ce fichier ou répertoire
+    # compare the group name of 2 files or folders.
+    # f5 user
+    # f6 group
+    chaine1=`stat "$1" | cut -d' ' -f6`
+    chaine2=`stat "$2" | cut -d' ' -f6`
+
+    if test $chaine1 \< $chaine2 
+    then
+        echo 1
+    elif test $chaine1 = $chaine2
+    then
+        echo 2
+    else
+        echo 0
+    fi
 }
 
 #Fonction de base pour comparer
