@@ -111,11 +111,7 @@ do
     sizeOfAllData=$(($sizeOfAllData+1))
 done
 
-#Jsp si on a le droit a sa
-allData=${allData%?}
-
-
-
+allData=$(echo "$allData" | sed 's/.$//')
 
 #FONCTIONS DE TRI
 #Tout le temps le meme principe
