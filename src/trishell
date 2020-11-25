@@ -111,8 +111,6 @@ do
     sizeOfAllData=$(($sizeOfAllData+1))
 done
 
-allData=$(echo "$allData" | sed 's/.$//')
-
 #FONCTIONS DE TRI
 #Tout le temps le meme principe
 #Renvoie 1 si $1 < $2, 0 si $1 > $2, 2 si $1=$2
@@ -367,7 +365,7 @@ tri(){
     test -z "$1" && return
     local res=`getLast "$1"`
     echo "$res"
-    tri "`echo "$1" | sed -E 's/'$res'(\/)?//'`"
+    tri "`echo "$1" | sed -E 's/'$res'\///'`"
 }
 
 IFS=/
