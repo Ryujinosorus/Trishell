@@ -228,6 +228,18 @@ doHeIsLower(){
         g) res=`groupComp $1 $2`;;
         *) echo "Parametre de tri pas bon " && exit 10;;
         esac
+
+        #Si l'ordre décroissant est actif, alors on inverse 1 et 0
+        if [ $asc = false ]
+        then
+            if [ $res -eq 1 ]
+            then
+                res="0"
+            elif [ $res -eq 0 ]
+            then
+                res="1"
+            fi
+        fi
         
         #Si il y a egalité on passe au tri suivant
         if [ $res -eq 2 ]
