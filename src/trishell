@@ -90,9 +90,10 @@ do
 
         for a in $(seq 3 $(($sortLength+1)))
         do
-            if ! [[ $(echo '\'$sortOrder | cut -c$a) =~ [n|s|m||l|e|t|p|g] ]] 
+            opt=`echo '\'$sortOrder | cut -c$a`
+            if ! [[ $opt =~ [n|s|m|l|e|t|p|g] ]] 
             then
-                echo "Parametre de tri invalide " && exit 2
+                echo "-$opt est un paramètre de tri invalide" && exit 2
             fi
         done
     fi
@@ -118,7 +119,7 @@ do
     sizeOfAllData=$(($sizeOfAllData+1))
 done
 
-echo "Trishell de : `pwd`"
+echo -e "\e[1m`pwd`"
 test $allData = "*/" && exit 0 
 
 
@@ -373,7 +374,12 @@ getLast(){
 tri(){
     test -z "$1" && return
     local res=`getLast "$1"`
-    echo "$res"
+    if test -d $res
+    then
+        echo -e "\e[94m'-> $res"
+    else
+        echo -e "\e[96m'-> $res"
+    fi
     tri "`echo "$1" | sed -E 's/'$res'\///'`"
 }
 
