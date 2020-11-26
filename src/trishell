@@ -118,7 +118,7 @@ do
     test -d "$i" && allFolder="`pwd`/$i:$allFolder"
     sizeOfAllData=$(($sizeOfAllData+1))
 done
-echo -e "\e[39m\e[1m`pwd`"
+echo -e "\x1B[39m\e[1m`pwd`"
 test "$allData" = "*/" && exit 0 
 
 
@@ -371,15 +371,16 @@ getLast(){
 }
 
 tri(){
-    test -z "$1" && return
+    test -z "$1" && return  
     local res=`getLast "$1"`
     if test -d $res
     then
-        echo -e "\e[94m'-> $res"
+        echo -e "\x1B[94m'-> $res"
     else
-        echo -e "\e[96m'-> $res"
+        echo -e "\x1B[96m'-> $res"
     fi
-    tri "`echo "$1" | sed -E 's/'$res'\///'`"
+    res="$res"/
+    tri "`echo "$1" |  perl -pe 's|\Q'"$res"'\E||'`"
 }
 
 IFS=/
@@ -398,7 +399,7 @@ then
         then 
             tmp="-d"
         fi
-        ./trishell "$i" $sortOrder -R $tmp
+        $0 "$i" $sortOrder -R $tmp
     done
 fi
 
