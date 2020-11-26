@@ -68,7 +68,7 @@ sortLength=1
 path="NULL"
 
 #READ ARG
-for i in $*
+for i in "$@"
 do
     if [ "$i" = "-R" ]
     then
@@ -81,7 +81,7 @@ do
     elif [[ "$i" =~ ^[^-] ]]
     then
         test "$path" != NULL && echo "Doublon dans les parametres" && exit 2 
-        ! test -d "$i" && echo "Chemin incorrect" && exit 4
+        ! test -d "$i" && echo "Chemin incorrect: $i" && exit 4
         path="$i"
     else
         test $sortOrder != NULL && echo "Doublon dans les parametres" && exit 2 
@@ -99,7 +99,7 @@ do
     fi
 done
 
-test $path = NULL && echo "Veuillez indiquer  un chemin" && exit 3
+test "$path" = NULL && echo "Veuillez indiquer  un chemin" && exit 3
 
 if [ $sortOrder = NULL ]
 then
@@ -385,12 +385,12 @@ tri(){
 IFS=/
 tri "$allData"
 
-IFS=\ 
+IFS=' '
 cd "$firstPath"
 
 if test $display = true
 then
-    IFS=:
+    IFS=":"
     for i in $allFolder
     do
         tmp=""
