@@ -56,7 +56,7 @@ firstIFS=$IFS
 IFS=$' \t\n'
 if [ $# -gt 4 ]
 then
-    echo "Trop d'arguments"
+    echo "Trop d'arguments, $usage"
     exit 1
 fi
 
@@ -118,9 +118,8 @@ do
     test -d "$i" && allFolder="`pwd`/$i:$allFolder"
     sizeOfAllData=$(($sizeOfAllData+1))
 done
-
 echo -e "\e[39m\e[1m`pwd`"
-test $allData = "*/" && exit 0 
+test "$allData" = "*/" && exit 0 
 
 
 
