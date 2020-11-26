@@ -118,6 +118,8 @@ do
     sizeOfAllData=$(($sizeOfAllData+1))
 done
 
+echo "Trishell de : `pwd`"
+test $allData = "*/" && exit 0 
 
 
 
@@ -357,7 +359,7 @@ getLowest(){
 }
 
 getLast(){
-    local res=`echo "$1" | cut -d' ' -f1`
+    local res=`echo "$1" | cut -d'/' -f1`
     for i in $1
     do
         if [ `getLowest "$i" "$res" 0` = 1 ]
@@ -376,7 +378,6 @@ tri(){
 }
 
 IFS=/
-echo "Trishell : `pwd`"
 tri "$allData"
 
 IFS=\ 
