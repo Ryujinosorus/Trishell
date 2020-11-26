@@ -119,7 +119,7 @@ do
     sizeOfAllData=$(($sizeOfAllData+1))
 done
 
-echo -e "\e[1m`pwd`"
+echo -e "\e[39m\e[1m`pwd`"
 test $allData = "*/" && exit 0 
 
 
