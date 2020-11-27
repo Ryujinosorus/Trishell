@@ -380,9 +380,9 @@ tri(){
         echo -e "\x1B[96m'-> $res"
     fi
     res="$res"/
-    res="`echo "$res" | sed -E 's/\|/\\\|/g'`"
-    
-    tri "`echo "$1" |  perl -pe 's|\Q'"$res"'\E||'`"
+    res="`echo "$res" | sed -E 's/\\/\\\\//g' | sed -E 's/\|/\\\|/g' `"
+
+    tri "`echo "${1}" |  perl -pe 's|\Q'"${res}"'||'`"
 }
 
 IFS=/
