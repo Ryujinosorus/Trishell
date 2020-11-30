@@ -163,7 +163,7 @@ sizeSort(){
         else
             echo 0
         fi
-    
+    fi
 }
 
 lastChangeSort(){
@@ -180,65 +180,27 @@ lastChangeSort(){
     fi
 }
 
-
-#take the path of a folder as a parameter
-#return the total lines of text files inside that folder
-nbLines(){
-if test -d "$1"
-then
-    local sum=0
-    local s=0
-    while test $# -ne 0
-    do
-        for i in "$1"/*
-        do 
-            if test -f "$i"
-            then
-                s=`wc -l< "$i"`
-                sum=`expr $sum + $s`
-            # see if there is any subfolder that is not symbolic link
-            elif test -d "$i" -a ! -L "$i"
-            then
-                set -- $@ "$i"
-            fi
-        done
-        shift
-    done
-    echo $sum
-fi
-
-}
-
 linesSort(){
-    local res1
-    local res2
-
-    if test -d "$1"; then
-        res1=`nbLines "$1"`
-    elif test -f "$1"; then
-        res1=`wc -l "$1" | cut -d' ' -f1`
-    elif test ! -f "$1"; then
-        res1=0
-    fi
-
-    if test -d "$2"; then
-        res2=`nbLines "$2"`
-    elif test -f "$2"; then
-        res2=`wc -l "$2" | cut -d' ' -f1`
-    elif test ! -f "$2"; then
-        res2=0
-    fi
-
-        if [[ "$res1" -lt "$res2" ]]
+     # Considère toujours les dossiers comme plus petit que les fichiers
+    if test -d "$1"
+    then
+        echo 1
+    elif test -d "$2"
+    then
+        echo 0
+    else
+        local res1=`wc -l "$1" | cut -d' ' -f1`
+        local res2=`wc -l "$2" | cut -d' ' -f1`
+        if [ "$res1" -lt "$res2" ]
         then
             echo 1
-        elif [[ "$res1" -eq "$res2" ]]
+        elif [ "$res1" -eq "$res2" ]
         then
             echo 2
         else
             echo 0
         fi
-
+    fi
 }
 
 extensionSort(){
@@ -324,8 +286,13 @@ ownerSort(){
     # compare the owner name of 2 files or folders.
     # f5 user
     # f6 group
+<<<<<<< HEAD
     chaine1=`stat -c '%U' "$1"`
     chaine2=`stat -c '%U' "$2"`
+=======
+    chaine1=` stat -c "%u" "$1"`
+    chaine2=` stat -c "%u" "$1"`
+>>>>>>> 0d940c4b2ff23867fa03f720774d4a9fd8fc289c
 
 
     if test "$chaine1" \< "$chaine2"
@@ -344,8 +311,13 @@ groupSort(){
     # compare the group name of 2 files or folders.
     # f5 user
     # f6 group
+<<<<<<< HEAD
     chaine1=`stat -c '%G' "$1"`
     chaine2=`stat -c '%G' "$1"`
+=======
+    chaine1=` stat -c "%g" "$1"`
+    chaine2=` stat -c "%g" "$1"`
+>>>>>>> 0d940c4b2ff23867fa03f720774d4a9fd8fc289c
 
     if test "$chaine1" \< "$chaine2" 
     then
