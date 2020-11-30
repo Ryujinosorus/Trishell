@@ -164,7 +164,7 @@ sizeSort(){
         else
             echo 0
         fi
-    fi
+    
 }
 
 lastChangeSort(){
@@ -195,8 +195,8 @@ then
         do 
             if test -f "$i"
             then
-                s=wc -l< "$i"
-                sum=expr $sum + $s
+                s=`wc -l< "$i"`
+                sum=`expr $sum + $s`
             # see if there is any subfolder that is not symbolic link
             elif test -d "$i" -a ! -L "$i"
             then
@@ -230,10 +230,10 @@ linesSort(){
         res2=0
     fi
 
-     if [ $res1 -lt $res2 ]
+        if [[ "$res1" -lt "$res2" ]]
         then
             echo 1
-        elif [ $res1 -eq $res2 ]
+        elif [[ "$res1" -eq "$res2" ]]
         then
             echo 2
         else
