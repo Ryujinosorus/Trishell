@@ -133,7 +133,7 @@ nameSort(){
         echo 1
     elif test "$1" = "$2"
     then
-        echo 2
+        echo 22
     else
         echo 0
     fi
@@ -150,10 +150,10 @@ sizeSort(){
     else
         local res1=`wc -c "$1" | cut -d' ' -f1`
         local res2=`wc -c "$2" | cut -d' ' -f1`
-        if [[ $res1 -lt $res2 ]]
+        if [[ "$res1" -lt "$res2" ]]
         then
             echo 1
-        elif [[ $res1 -eq $res2 ]]
+        elif [[ "$res1" -eq "$res2" ]]
         then
             echo 2
         else
@@ -165,10 +165,10 @@ sizeSort(){
 lastChangeSort(){
     local timestamp1=`stat -c '%y' "$1"`
     local timestamp2=`stat -c '%y' "$2"`
-    if test $timestamp1 \< $timestamp2
+    if test "$timestamp1" \< "$timestamp2"
     then
         echo 1
-    elif test $timestamp1 = $timestamp2
+    elif test "$timestamp1" = "$timestamp2"
     then
         echo 2
     else
@@ -187,10 +187,10 @@ linesSort(){
     else
         local res1=`wc -l "$1" | cut -d' ' -f1`
         local res2=`wc -l "$2" | cut -d' ' -f1`
-        if [ $res1 -lt $res2 ]
+        if [ "$res1" -lt "$res2" ]
         then
             echo 1
-        elif [ $res1 -eq $res2 ]
+        elif [ "$res1" -eq "$res2" ]
         then
             echo 2
         else
@@ -206,10 +206,10 @@ extensionSort(){
     chaine1=`echo "$1" | awk -F. '{print $NF}'`
     chaine2=`echo "$2" | awk -F. '{print $NF}'`
 
-    if test $chaine1 \< $chaine2
+    if test "$chaine1" \< "$chaine2"
     then
         echo 1
-    elif test $chaine1 = $chaine2
+    elif test "$chaine1" = "$chaine2"
     then
         echo 2
     else
@@ -266,10 +266,10 @@ typeSort(){
         res2="8"
     fi
 
-    if [ $res1 -lt $res2 ]
+    if [ "$res1" -lt "$res2" ]
     then
         echo 1
-    elif [ $res1 -eq $res2 ]
+    elif [ "$res1" -eq "$res2" ]
     then
         echo 2
     else
@@ -286,10 +286,10 @@ ownerSort(){
     chaine2=`stat "$2" | cut -d' ' -f5`
 
 
-    if test $chaine1 \< $chaine2
+    if test "$chaine1" \< "$chaine2"
     then
         echo 1
-    elif test $chaine1 = $chaine2
+    elif test "$chaine1" = "$chaine2"
     then
         echo 2
     else
@@ -305,10 +305,10 @@ groupSort(){
     chaine1=`stat "$1" | cut -d' ' -f6`
     chaine2=`stat "$2" | cut -d' ' -f6`
 
-    if test $chaine1 \< $chaine2 
+    if test "$chaine1" \< "$chaine2" 
     then
         echo 1
-    elif test $chaine1 = $chaine2
+    elif test "$chaine1" = "$chaine2"
     then
         echo 2
     else
@@ -326,6 +326,7 @@ getLowest(){
         local char=`echo '\'$sortOrder | cut -c$(($3+3))`
         local res
         #On compare
+        IFS=\ 
         case $char in
         n) res=`nameSort "$1" "$2"`;;
         s) res=`sizeSort "$1" "$2"`;;
@@ -337,7 +338,7 @@ getLowest(){
         g) res=`groupSort "$1" "$2"`;;
         *) echo "Le paramètre de tri spécifié est invalide" && exit 10;;
         esac
-        
+        IFS=/
         #Si il y a egalité on passe au tri suivant
         if [ $res -eq 2 ]
         then
@@ -380,9 +381,9 @@ tri(){
         echo -e "\x1B[96m'-> $res"
     fi
     res="$res"/
-    res="`echo "$res" | sed -E 's/\\/\\\\//g' | sed -E 's/\|/\\\|/g' `"
+    res="`echo "$res" | sed -E 's/\|/\\\|/g' `"
 
-    tri "`echo "${1}" |  perl -pe 's|\Q'"${res}"'||'`"
+    tri "`echo "${1}" |  perl -pe 's|\Q'"${res}"'\E||'`"
 }
 
 IFS=/
