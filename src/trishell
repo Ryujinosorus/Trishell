@@ -167,8 +167,8 @@ sizeSort(){
 }
 
 lastChangeSort(){
-    local timestamp1=`stat -c '%y' "$1"`
-    local timestamp2=`stat -c '%y' "$2"`
+    local timestamp1=`stat -c '%Y' "$1"`
+    local timestamp2=`stat -c '%Y' "$2"`
     if test "$timestamp1" \< "$timestamp2"
     then
         echo 1
