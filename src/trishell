@@ -151,9 +151,8 @@ sizeSort(){
     #     local res1=`wc -c "$1" | cut -d' ' -f1`
     #     local res2=`wc -c "$2" | cut -d' ' -f1`
 
-    # check stat syntax on linux, I dont know if it works on linux or not
-    local res1=`stat "$1" | cut -d' ' -f8`
-    local res2=`stat "$2" | cut -d' ' -f8`
+    local res1=`stat -c '%s' "$1"`
+    local res2=`stat -c '%s' "$1"`
 
         if [[ "$res1" -lt "$res2" ]]
         then
@@ -325,8 +324,8 @@ ownerSort(){
     # compare the owner name of 2 files or folders.
     # f5 user
     # f6 group
-    chaine1=`stat "$1" | cut -d' ' -f5`
-    chaine2=`stat "$2" | cut -d' ' -f5`
+    chaine1=`stat -c '%U' "$1"`
+    chaine2=`stat -c '%U' "$2"`
 
 
     if test "$chaine1" \< "$chaine2"
@@ -345,8 +344,8 @@ groupSort(){
     # compare the group name of 2 files or folders.
     # f5 user
     # f6 group
-    chaine1=`stat "$1" | cut -d' ' -f6`
-    chaine2=`stat "$2" | cut -d' ' -f6`
+    chaine1=`stat -c '%G' "$1"`
+    chaine2=`stat -c '%G' "$1"`
 
     if test "$chaine1" \< "$chaine2" 
     then
