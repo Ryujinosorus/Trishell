@@ -141,9 +141,15 @@ nameSort(){
 
 sizeSort(){
     # Considère toujours les dossiers comme plus petit que les fichiers
-    local res1=`stat -c '%s' "$1"`
-    local res2=`stat -c '%s' "$1"`
-
+    if test -d "$1"
+    then
+        echo 1
+    elif test -d "$2"
+    then
+        echo 0
+    else
+        local res1=`wc -c "$1" | cut -d' ' -f1`
+        local res2=`wc -c "$2" | cut -d' ' -f1`
         if [[ "$res1" -lt "$res2" ]]
         then
             echo 1
@@ -157,8 +163,8 @@ sizeSort(){
 }
 
 lastChangeSort(){
-    local timestamp1=`stat -c '%Y' "$1"`
-    local timestamp2=`stat -c '%Y' "$2"`
+    local timestamp1=`stat -c '%y' "$1"`
+    local timestamp2=`stat -c '%y' "$2"`
     if test "$timestamp1" \< "$timestamp2"
     then
         echo 1
@@ -271,11 +277,14 @@ typeSort(){
     fi
 }
 
-ownerSort(){
+ownerSort(){    
     # $1 $2 est le chemin de ce fichier ou répertoire
     # compare the owner name of 2 files or folders.
+    # f5 user
+    # f6 group
     chaine1=`stat -c '%U' "$1"`
     chaine2=`stat -c '%U' "$2"`
+
 
     if test "$chaine1" \< "$chaine2"
     then
@@ -291,9 +300,10 @@ ownerSort(){
 groupSort(){
     # $1 $2 est le chemin de ce fichier ou répertoire
     # compare the group name of 2 files or folders.
-    
-    chaine1=`stat -c '%G' "$1"`
-    chaine2=`stat -c '%G' "$1"
+    # f5 user
+    # f6 group
+    chaine1=` stat -c "%g" "$1"`
+    chaine2=` stat -c "%g" "$1"`
 
     if test "$chaine1" \< "$chaine2" 
     then
@@ -364,11 +374,11 @@ getLast(){
 tri(){
     test -z "$1" && return  
     local res=`getLast "$1"`
-    if test -d $res
+    if test -d "$res"
     then
-        echo -e "\x1B[94m'-> $res"
+        echo -e "\x1B[94m'-> "$res""
     else
-        echo -e "\x1B[96m'-> $res"
+        echo -e "\x1B[96m'-> "$res""
     fi
     res="$res"/
     res="`echo "$res" | sed -E 's/\|/\\\|/g' `"
