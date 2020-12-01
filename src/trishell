@@ -163,8 +163,8 @@ sizeSort(){
 }
 
 lastChangeSort(){
-    local timestamp1=`stat -c '%y' "$1"`
-    local timestamp2=`stat -c '%y' "$2"`
+    local timestamp1=`stat -c '%Y' "$1"`
+    local timestamp2=`stat -c '%Y' "$2"`
     if test "$timestamp1" \< "$timestamp2"
     then
         echo 1
@@ -302,8 +302,8 @@ groupSort(){
     # compare the group name of 2 files or folders.
     # f5 user
     # f6 group
-    chaine1=` stat -c "%g" "$1"`
-    chaine2=` stat -c "%g" "$1"`
+    chaine1=` stat -c "%G" "$1"`
+    chaine2=` stat -c "%G" "$1"`
 
     if test "$chaine1" \< "$chaine2" 
     then
