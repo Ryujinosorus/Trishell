@@ -118,7 +118,7 @@ do
     test -d "$i" && allFolder="`pwd`/$i:$allFolder"
     sizeOfAllData=$(($sizeOfAllData+1))
 done
-echo -e "\x1B[39m\e[1m`pwd`"
+echo -e "\x1B[39m\x1B[1m`pwd`\x1B[0m"
 test "$allData" = "*/" && exit 0 
 
 
@@ -185,8 +185,8 @@ linesSort(){
     then
         echo 0
     else
-        local res1=`wc -l "$1" | cut -d' ' -f1`
-        local res2=`wc -l "$2" | cut -d' ' -f1`
+        local res1="`wc -l "$1" | cut -d' ' -f1`"
+        local res2="`wc -l "$2" | cut -d' ' -f1`"
         if [ "$res1" -lt "$res2" ]
         then
             echo 1
@@ -376,13 +376,12 @@ tri(){
     local res=`getLast "$1"`
     if test -d "$res"
     then
-        echo -e "\x1B[94m'-> "$res""
+        echo -e "\x1B[94m'-> "$res"\x1B[0m"
     else
-        echo -e "\x1B[96m'-> "$res""
+        echo -e "\x1B[96m'-> "$res"\x1B[0m"
     fi
-    res="$res"/
+    res="$res/"
     res="`echo "$res" | sed -E 's/\|/\\\|/g' `"
-
     tri "`echo "${1}" |  perl -pe 's|\Q'"${res}"'\E||'`"
 }
 
