@@ -141,16 +141,6 @@ nameSort(){
 
 sizeSort(){
     # Considère toujours les dossiers comme plus petit que les fichiers
-    # if test -d "$1"
-    # then
-    #     echo 1
-    # elif test -d "$2"
-    # then
-    #     echo 0
-    # else
-    #     local res1=`wc -c "$1" | cut -d' ' -f1`
-    #     local res2=`wc -c "$2" | cut -d' ' -f1`
-
     local res1=`stat -c '%s' "$1"`
     local res2=`stat -c '%s' "$1"`
 
@@ -284,16 +274,8 @@ typeSort(){
 ownerSort(){
     # $1 $2 est le chemin de ce fichier ou répertoire
     # compare the owner name of 2 files or folders.
-    # f5 user
-    # f6 group
-<<<<<<< HEAD
     chaine1=`stat -c '%U' "$1"`
     chaine2=`stat -c '%U' "$2"`
-=======
-    chaine1=` stat -c "%u" "$1"`
-    chaine2=` stat -c "%u" "$1"`
->>>>>>> 0d940c4b2ff23867fa03f720774d4a9fd8fc289c
-
 
     if test "$chaine1" \< "$chaine2"
     then
@@ -309,15 +291,9 @@ ownerSort(){
 groupSort(){
     # $1 $2 est le chemin de ce fichier ou répertoire
     # compare the group name of 2 files or folders.
-    # f5 user
-    # f6 group
-<<<<<<< HEAD
+    
     chaine1=`stat -c '%G' "$1"`
-    chaine2=`stat -c '%G' "$1"`
-=======
-    chaine1=` stat -c "%g" "$1"`
-    chaine2=` stat -c "%g" "$1"`
->>>>>>> 0d940c4b2ff23867fa03f720774d4a9fd8fc289c
+    chaine2=`stat -c '%G' "$1"
 
     if test "$chaine1" \< "$chaine2" 
     then
