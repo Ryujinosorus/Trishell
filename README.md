@@ -34,7 +34,63 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un répertoire.
 
 # Liste des fonctionnalités non réalisé
 
-Tout fait pour l'instant, a part caractere speciaux
+Tri en O(nlogn)
+
+Un tri en 0(nlogn) a été réalisé.
+
+Voici le code :
+```
+getElemAt(){
+    echo "$1" | cut -d/ -f$(($2+1))
+}
+
+
+reduce(){
+    test $1 = 0 && echo 1 && exit
+    res=`bc -l <<< $1/1.3`
+    res=`echo $res | cut -d. -f1`
+    test -z $res && echo 1 && exit
+    if test "$res" = "0"
+    then
+        echo 1
+    else
+        echo $res
+    fi
+}
+
+swap(){
+    res=`echo "$1" | sed -E 's/'$2'\//'$3'_\//'`
+    res=`echo "$res" | sed -E 's/'$3'\//'$2'\//'`
+    res=`echo "$res" | sed -E 's/'$3'_\//'$3'\//'`
+    echo "$res"
+}
+
+tri(){
+    permutation="true"
+    tab=$1
+    gap=$2
+    while [ $permutation = "true" ] || [ "$gap" -gt 1 ]
+    do
+        permutation="false"
+        gap=`reduce $gap`
+        for index in $(seq 0  $(($2-$gap-1)) )
+        do
+            file1=`getElemAt $tab $index`
+            file2=`getElemAt $tab $(($index+$gap))`
+            if test `getLowest $file2 $file1 0` = 1
+            then
+                permutation="true"
+                tab=`swap $tab $file1 $file2`
+            fi
+        done
+    done
+    IFS=/
+    
+   
+```
+Ceci est une representation du tri a peigne
+Cependant pour lors de la permutation d'élements, nous utilisons 3 commande sed, à cela s'ajoute l'utilisation de float ainsi que des divisions.
+Donc au final notre tri en O(n2) est plus rapide que notre tri en O(nlogn)
 
 # Répartition des tâches
 
