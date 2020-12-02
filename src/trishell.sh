@@ -338,13 +338,13 @@ getLowest(){
         g) res=`groupSort "$1" "$2"`;;
         *) echo "Le paramètre de tri spécifié est invalide" && exit 10;;
         esac
-        IFS=/
         #Si il y a egalité on passe au tri suivant
         if [ $res -eq 2 ]
         then
             local tmp=`expr $3 + 1`
             echo `getLowest "$1" "$2" $tmp`
         else
+        IFS=/
         #Sinon on affiche le resultat
             if test $asc = "true"
             then 
@@ -371,6 +371,17 @@ getLast(){
     echo "$res"
 }
 
+change(){
+    local res=""
+    for i in $2
+    do
+        if [ "$1" != "$i" ]
+        then
+            res="$res""$i/"
+        fi
+    done
+    echo "$res"
+}
 tri(){
     test -z "$1" && return  
     local res=`getLast "$1"`
@@ -380,9 +391,7 @@ tri(){
     else
         echo -e "\x1B[96m'-> "$res"\x1B[0m"
     fi
-    res="$res/"
-    res="`echo "$res" | sed -E 's/\|/\\\|/g' `"
-    tri "`echo "${1}" |  perl -pe 's|\Q'"${res}"'\E||'`"
+    tri $tab "`change "$res" "$1"`"
 }
 
 IFS=/
