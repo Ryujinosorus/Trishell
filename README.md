@@ -45,7 +45,7 @@ Tout fait pour l'instant, a part caractere speciaux
 | -s sizeSort         |                  |  :+1:            |   
 | -m lastChangeSort   |                  |  :+1:            |   
 | -l linesSort        |                  |  :+1:            |   
-| -e extensionSort    |                  |  :+1:            |    
+| -e extensionSort    |                  |                  |   :+1:   
 | -t typeSort         |                  |  :+1:            |   
 | -p ownerSort        |                  |                  |   :+1:  
 | -g groupSort        |                  |                  |   :+1:  
