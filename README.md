@@ -34,9 +34,27 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un répertoire.
 
 # Liste des fonctionnalités non réalisé
 
-
+Tout fait pour l'instant, a part caractere speciaux
 
 # Répartition des tâches
+
+* Base algorithmique: Naim Es-sebbani
+
+* fonction de tri :
+* -n nameSort : Naim Es-sebbani
+* -s sizeSort : Jason Guestin
+* -m lastChangeSort : Jason Guestin
+* -l linesSort : Jason Guestin
+* -e extensionSort : Junhao Li, Jason Guestion 
+* -t typeSort : Jason Guestin
+* -o ownerSort : Junhao Li
+* -g groupSort : Junhao Li
+
+* Decroissant -d : Jason Guestin
+* Testeur:Junhao Li
+* Deboggage: Naim Es-sebbani,Jason Guestin
+* Affichage : Jason Guestion
+* Récursivité -R: Naim Es-sebbani
 
 
 # Poucentage du travail réalisé 
