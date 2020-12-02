@@ -34,11 +34,11 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un répertoire.
 
 # Liste des fonctionnalités non réalisé
 
-Tri en O(nlogn)
+## Tri en O(nlogn)
 
 Un tri en 0(nlogn) a été réalisé.
-
 Voici le code :
+
 ```
 getElemAt(){
     echo "$1" | cut -d/ -f$(($2+1))
@@ -88,8 +88,9 @@ tri(){
     
    
 ```
-Ceci est une representation du tri a peigne
-Cependant pour lors de la permutation d'élements, nous utilisons 3 commande sed, à cela s'ajoute l'utilisation de float ainsi que des divisions.
+Ceci est une representation du tri a peigne . 
+Cependant lors de la permutation d'élements, nous utilisons 3 commande sed . 
+A cela s'ajoute l'utilisation de float ainsi que des divisions . 
 Donc au final notre tri en O(n2) est plus rapide que notre tri en O(nlogn)
 
 # Répartition des tâches
