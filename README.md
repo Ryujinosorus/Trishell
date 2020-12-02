@@ -40,37 +40,21 @@ Tout fait pour l'instant, a part caractere speciaux
 
 |                     | Naim Es-sebbani  |  Jason Guestion  | Junhao Li  
 |---------------------|------------------|------------------|-----------
-| Base algorithmique  |   |   |   |   |
-| -n nameSort         |   |   |   |   |
-| -s sizeSort         |   |   |   |   |
-| -m lastChangeSort   |   |   |   |   |
-| -n linesSort        |   |   |   |   |
-| -n extensionSort    |   |   |   |   |
-| -n typeSort         |   |   |   |   |
-| -n ownerSort        |   |   |   |   |
-| -n groupSort        |   |   |   |   |
-| -d Décroissant      |   |   |   |   |
-| -R Récursivité      |   |   |   |   |
-| Testeur             |   |   |   |   |
-| Affichage           |   |   |   |   |
-| Débogage            |   |   |   |   |
+| Base algorithmique  |  :+1:            |                  |  
+| -n nameSort         |  :+1:            |                  |  
+| -s sizeSort         |                  |  :+1:            |   
+| -m lastChangeSort   |                  |  :+1:            |   
+| -l linesSort        |                  |  :+1:            |   
+| -e extensionSort    |                  |  :+1:            |    
+| -t typeSort         |                  |  :+1:            |   
+| -p ownerSort        |                  |                  |   :+1:  
+| -g groupSort        |                  |                  |   :+1:  
+| -d Décroissant      |                  |  :+1:            |   
+| -R Récursivité      |  :+1:            |                  |  
+| Testeur             |                  |                  |   :+1: 
+| Affichage           |                  |  :+1:            |  
+| Débogage            |  :+1:            |  :+1:            |    
 
-* Base algorithmique: Naim Es-sebbani
-* fonction de tri :
-* -n nameSort : Naim Es-sebbani
-* -s sizeSort : Jason Guestin
-* -m lastChangeSort : Jason Guestin
-* -l linesSort : Jason Guestin
-* -e extensionSort : Junhao Li, Jason Guestion 
-* -t typeSort : Jason Guestin
-* -o ownerSort : Junhao Li
-* -g groupSort : Junhao Li
-
-* Decroissant -d : Jason Guestin
-* Testeur:Junhao Li
-* Deboggage: Naim Es-sebbani,Jason Guestin
-* Affichage : Jason Guestion
-* Récursivité -R: Naim Es-sebbani
 
 
 # Poucentage du travail réalisé 
