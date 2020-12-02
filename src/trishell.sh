@@ -218,14 +218,14 @@ linesSort(){
     fi
 
      if [ $res1 -lt $res2 ]
-        then
+     then
             echo 1
-        elif [ $res1 -eq $res2 ]
-        then
+     elif [ $res1 -eq $res2 ]
+    then
             echo 2
-        else
+    else
             echo 0
-        fi
+    fi
 
 }
 
@@ -233,8 +233,23 @@ extensionSort(){
     #chaine 1 et 2 sont les extensions
     # awk -F. separate the string by dot
     # print $NF will print the last one   
-    chaine1=`echo "$1" | awk -F. '{print $NF}'`
-    chaine2=`echo "$2" | awk -F. '{print $NF}'`
+    local chaine1
+    local chaine2
+    case $1 in
+    *.*)  
+    chaine1=`echo "$1" | awk -F. '{print $NF}'`;;
+    *)
+    chaine2=0
+    ;;
+    esac
+
+    case $2 in
+    *.*)  
+    chaine1=`echo "$2" | awk -F. '{print $NF}'`;;
+    *)
+    chaine2=0
+    ;;
+    esac
 
     if test "$chaine1" \< "$chaine2"
     then
