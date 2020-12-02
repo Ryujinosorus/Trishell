@@ -1,16 +1,31 @@
-NAME
-    The name of the command or function, followed by a one-line description of what it does.
-SYNOPSIS
-    In the case of a command, you get a formal description of how to run it and what command line options it takes.
-DESCRIPTION
-    A textual description of the functioning of the command or function.
+TRISHELL
+    trishell [-R] [-nsmleptg] dir
 EXAMPLES
-    Some examples of common usage.
+    trishell -n /home/user  Sort entry file in /home/user by name
+    trishell -s /home/user Sort entry file in /home/user by size
+    trishell -sn /home/user Sort entry file in /home/user by size and if two file have the same size, they will be sort by name
+    trishell -R -sn /home/user Recursively sort entry file in /home/user by size and if two file have the same size, they will be sort by name
 SEE ALSO
-    A list of related commands or functions.
+    You can use all this option
+
+        -R,         sort the contents of the tree starting at the directory dir. In this case we will sort according to the entry names but the path will be display(ed)?,
+        -d,         sorting in descending order, by default sorting is done in ascending order,
+        -n,         sort according to the entry name,
+        -s,         sort by entry size,
+        -m,         sort according to the last modification date of the entries,
+        -l,         sort according to the number of rows of entries,
+        -e,         sort according to the extension of the entries (characters found after the last point of the entry name),
+        -p,         sort by the name of the entry owner,
+        -t,         sort according to the type of file (order: directory, file, links, block type special file, file special type character, named pipe, socket),
+        -g,         sort by the name of the entry group,
+        -help       display this help and exit
+        -version    display version information and exit
 BUGS
-    List known bugs.
+    Dont work with file who containt "$" or "@
 AUTHOR
-   Specify your contact information.
+    Written by Es-sebbani Naim, Guestin Jason, Junhao Li
 COPYRIGHT
-    Specify your copyright information.
+    Copyright (C) 2020 Free Software Foundation, Inc.
+    This is free software.  You may redistribute copies of it under the terms of
+    the GNU General Public License <https://www.gnu.org/licenses/gpl.html>.
+    There is NO WARRANTY, to the extent permitted by law.
