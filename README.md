@@ -38,8 +38,24 @@ Tout fait pour l'instant, a part caractere speciaux
 
 # Répartition des tâches
 
-* Base algorithmique: Naim Es-sebbani
+|                     | Naim Es-sebbani  |  Jason Guestion  | Junhao Li  
+|---------------------|------------------|------------------|-----------
+| Base algorithmique  |   |   |   |   |
+| -n nameSort         |   |   |   |   |
+| -s sizeSort         |   |   |   |   |
+| -m lastChangeSort   |   |   |   |   |
+| -n linesSort        |   |   |   |   |
+| -n extensionSort    |   |   |   |   |
+| -n typeSort         |   |   |   |   |
+| -n ownerSort        |   |   |   |   |
+| -n groupSort        |   |   |   |   |
+| -d Décroissant      |   |   |   |   |
+| -R Récursivité      |   |   |   |   |
+| Testeur             |   |   |   |   |
+| Affichage           |   |   |   |   |
+| Débogage            |   |   |   |   |
 
+* Base algorithmique: Naim Es-sebbani
 * fonction de tri :
 * -n nameSort : Naim Es-sebbani
 * -s sizeSort : Jason Guestin
