@@ -111,7 +111,7 @@ Donc au final notre tri en O(n2) est plus rapide que notre tri en O(nlogn)
 | Testeur             |                  |                  |   :+1: 
 | Affichage           |                  |  :+1:            |  
 | Débogage            |  :+1:            |  :+1:            |    
-
+| Manual              |  :+1:            |                  |    
 
 
 # Poucentage du travail réalisé 
