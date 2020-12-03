@@ -206,7 +206,7 @@ extensionSort(){
 
     case $2 in
     *.*)  
-    chaine1=`echo -- "$2" | awk -F. '{print $NF}'`;;
+    chaine2=`echo -- "$2" | awk -F. '{print $NF}'`;;
     *)
     chaine2=0
     ;;
