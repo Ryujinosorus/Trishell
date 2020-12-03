@@ -85,7 +85,7 @@ tri(){
         done
     done
     IFS=/
-    
+}
    
 ```
 Ceci est une representation du tri a peigne . 
