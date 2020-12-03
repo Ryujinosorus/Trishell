@@ -17,7 +17,7 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un répertoire.
 * chmod u+x trishell.sh
 
 
-# Liste des fonctionnalités
+# Liste des fonctionnalités demandé
 * -R : tri le contenu de l’arborescence débutant au répertoire rep. Dans ce cas on triera par rapport aux noms des entrées mais on affichera le chemin d’accès 
 * -d : tri dans l’ordre décroissant, par défaut le tri est effectué dans l’ordre croissant 
 * -nsdletpg : permet de spécifier le critère de tri utilisé. Ces critères peuvent être combinés, dans ce cas si deux fichiers sont identiques pour le premier critère, le second critère les départegera et ainsi de suite.
