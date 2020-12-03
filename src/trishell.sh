@@ -62,7 +62,7 @@ fi
 
 #INIT VAR
 asc=true
-display=false
+recursively=false
 sortOrder="NULL"
 sortLength=1
 path="NULL"
@@ -72,8 +72,8 @@ for i in "$@"
 do
     if [ "$i" = "-R" ]
     then
-        test "$display" = true && echo "Doublon dans les parametres -R" && exit 2 
-        display=true
+        test "$recursively" = true && echo "Doublon dans les parametres -R" && exit 2 
+        recursively=true
     elif [ "$i" = "-d" ]
     then
         test $asc = false && echo "Doublon dans les parametres" && exit 2 
@@ -133,7 +133,7 @@ nameSort(){
         echo 1
     elif test "$1" = "$2"
     then
-        echo 2
+        echo 22
     else
         echo 0
     fi
@@ -407,7 +407,7 @@ tri "$allData"
 IFS=' '
 cd "$firstPath"
 
-if test $display = true
+if test $recursively = true
 then
     IFS=":"
     for i in $allFolder
