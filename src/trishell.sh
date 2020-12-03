@@ -309,7 +309,7 @@ groupSort(){
     # f5 user
     # f6 group
     chaine1=` stat -c "%G" -- "$1"`
-    chaine2=` stat -c "%G" -- "$1"`
+    chaine2=` stat -c "%G" -- "$2"`
 
     if test "$chaine1" \< "$chaine2" 
     then
