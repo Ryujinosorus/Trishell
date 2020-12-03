@@ -33,9 +33,6 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un répertoire.
 
 # Liste des fonctionnalités réalisé
 
-
-# Liste des fonctionnalités non réalisé
-
 * main : 
 * nameSort() :
 * sizeSort() :
@@ -49,6 +46,10 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un répertoire.
 * getLast() : 
 * change() : 
 * tri() : 
+
+
+# Liste des fonctionnalités non réalisé
+
 ## Tri en O(nlogn)
 
 Un tri en 0(nlogn) a été réalisé.
