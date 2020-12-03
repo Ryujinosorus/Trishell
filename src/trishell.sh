@@ -200,7 +200,7 @@ extensionSort(){
     *.*)  
     chaine1=`echo -- "$1" | awk -F. '{print $NF}'`;;
     *)
-    chaine2=0
+    chaine1=0
     ;;
     esac
 
