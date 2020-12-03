@@ -182,8 +182,8 @@ then
         do 
             if test -f "$i"
             then
-                s=wc -l< "$i"
-                sum=expr $sum + $s
+                s=`wc -l< "$i"`
+                sum=`expr $sum + $s`
             # see if there is any subfolder that is not symbolic link
             elif test -d "$i" -a ! -L "$i"
             then
