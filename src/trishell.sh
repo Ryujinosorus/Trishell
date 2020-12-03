@@ -133,7 +133,7 @@ nameSort(){
         echo 1
     elif test "$1" = "$2"
     then
-        echo 22
+        echo 2
     else
         echo 0
     fi
