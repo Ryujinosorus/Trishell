@@ -143,15 +143,14 @@ sizeSort(){
     local res1=`stat -c '%s' "$1"`
     local res2=`stat -c '%s' "$2"`
 
-        if [[ "$res1" -lt "$res2" ]]
-        then
-            echo 1
-        elif [[ "$res1" -eq "$res2" ]]
-        then
-            echo 2
-        else
-            echo 0
-        fi
+    if [[ "$res1" -lt "$res2" ]]
+    then
+        echo 1
+    elif [[ "$res1" -eq "$res2" ]]
+    then
+        echo 2
+    else
+        echo 0
     fi
 }
 
