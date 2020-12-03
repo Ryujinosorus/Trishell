@@ -33,7 +33,14 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un répertoire.
 
 # Liste des fonctionnalités réalisé
 
-* main : 
+## Fonction de tri
+
+Tout le temps le meme principe:
+    Prend 2 arguments .
+    Renvoie 1 si $1 < $2
+    Renvoie 0 si $1> $2
+    Renvoie 2 si $1 = $2
+
 * nameSort() :
 * sizeSort() :
 * lastChangeSort() :
