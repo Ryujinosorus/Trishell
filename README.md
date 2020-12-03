@@ -31,9 +31,24 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un répertoire.
 *   -g : tri suivant le groupe du propriétaire de l’entrée.
 
 
+# Liste des fonctionnalités réalisé
+
 
 # Liste des fonctionnalités non réalisé
 
+* main : 
+* nameSort() :
+* sizeSort() :
+* lastChangeSort() :
+* linesSort() :
+* extensionSort() : 
+* typeSort() : 
+* ownerSort() : 
+* groupSort() : 
+* getLowest() :
+* getLast() : 
+* change() : 
+* tri() : 
 ## Tri en O(nlogn)
 
 Un tri en 0(nlogn) a été réalisé.
