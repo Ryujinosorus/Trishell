@@ -140,8 +140,8 @@ nameSort(){
 }
 
 sizeSort(){
-    local res1=`stat -c '%s' "$1"`
-    local res2=`stat -c '%s' "$2"`
+    local res1=`stat -c '%s' -- "$1"`
+    local res2=`stat -c '%s' -- "$2"`
 
     if [[ "$res1" -lt "$res2" ]]
     then
@@ -155,8 +155,8 @@ sizeSort(){
 }
 
 lastChangeSort(){
-    local timestamp1=`stat -c '%Y' "$1"`
-    local timestamp2=`stat -c '%Y' "$2"`
+    local timestamp1=`stat -c '%Y' -- "$1"`
+    local timestamp2=`stat -c '%Y' -- "$2"`
     if test "$timestamp1" \< "$timestamp2"
     then
         echo 1
@@ -168,65 +168,27 @@ lastChangeSort(){
     fi
 }
 
-#take the path of a folder as a parameter
-#return the total lines of text files inside that folder
-nbLines(){
-if test -d "$1"
-then
-    local sum=0
-    local s=0
-    while test $# -ne 0
-    do
-        for i in "$1"/*
-        do 
-            if test -f "$i"
-            then
-                s=`wc -l< "$i"`
-                sum=`expr $sum + $s`
-            # see if there is any subfolder that is not symbolic link
-            elif test -d "$i" -a ! -L "$i"
-            then
-                set -- $@ "$i"
-            fi
-        done
-        shift
-    done
-    echo $sum
-fi
 
-}
 
 linesSort(){
-    local res1
-    local res2
+    test -d "$1" && echo "0" &&  return
+    test -d "$2" && echo "1" &&  return
 
-    if test -d "$1"; then
-        res1=`nbLines "$1"`
-    elif test -f "$1"; then
-        res1=`wc -l "$1" | cut -d' ' -f1`
-    elif test ! -f "$1"; then
-        res1=0
-    fi
+    local res1=`wc -l -- "$1" | cut -d\  -f1`
+    local res2=`wc -l -- "$2" | cut -d\  -f1`
 
-    if test -d "$2"; then
-        res2=`nbLines "$2"`
-    elif test -f "$2"; then
-        res2=`wc -l "$2" | cut -d' ' -f1`
-    elif test ! -f "$2"; then
-        res2=0
-    fi
-
-     if [ $res1 -lt $res2 ]
-     then
-            echo 1
-     elif [ $res1 -eq $res2 ]
+    if [[ "$res1" -lt "$res2" ]]
     then
-            echo 2
+        echo 1
+    elif [[ "$res1" -eq "$res2" ]]
+    then
+        echo 2
     else
-            echo 0
+        echo 0
     fi
-
 }
+
+
 
 extensionSort(){
     #chaine 1 et 2 sont les extensions
@@ -236,7 +198,7 @@ extensionSort(){
     local chaine2
     case $1 in
     *.*)  
-    chaine1=`echo "$1" | awk -F. '{print $NF}'`;;
+    chaine1=`echo -- "$1" | awk -F. '{print $NF}'`;;
     *)
     chaine2=0
     ;;
@@ -244,7 +206,7 @@ extensionSort(){
 
     case $2 in
     *.*)  
-    chaine1=`echo "$2" | awk -F. '{print $NF}'`;;
+    chaine1=`echo -- "$2" | awk -F. '{print $NF}'`;;
     *)
     chaine2=0
     ;;
@@ -326,8 +288,8 @@ ownerSort(){
     # compare the owner name of 2 files or folders.
     # f5 user
     # f6 group
-    chaine1=`stat -c '%U' "$1"`
-    chaine2=`stat -c '%U' "$2"`
+    chaine1=`stat -c '%U' -- "$1"`
+    chaine2=`stat -c '%U' -- "$2"`
 
 
     if test "$chaine1" \< "$chaine2"
@@ -346,8 +308,8 @@ groupSort(){
     # compare the group name of 2 files or folders.
     # f5 user
     # f6 group
-    chaine1=` stat -c "%G" "$1"`
-    chaine2=` stat -c "%G" "$1"`
+    chaine1=` stat -c "%G" -- "$1"`
+    chaine2=` stat -c "%G" -- "$1"`
 
     if test "$chaine1" \< "$chaine2" 
     then
@@ -439,6 +401,7 @@ tri(){
 }
 
 IFS=/
+#getLast "$allData"
 tri "$allData"
 
 IFS=' '
