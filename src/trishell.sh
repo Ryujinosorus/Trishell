@@ -173,6 +173,8 @@ lastChangeSort(){
 linesSort(){
     test -d "$1" && echo "0" &&  return
     test -d "$2" && echo "1" &&  return
+    test -p "$1" && echo "0" &&  return
+    test -p "$2" && echo "1" &&  return
 
     local res1=`wc -l -- "$1" | cut -d\  -f1`
     local res2=`wc -l -- "$2" | cut -d\  -f1`
@@ -200,13 +202,13 @@ extensionSort(){
     *.*)  
     chaine1=`echo -- "$1" | awk -F. '{print $NF}'`;;
     *)
-    chaine1=0
+    chaine2=0
     ;;
     esac
 
     case $2 in
     *.*)  
-    chaine2=`echo -- "$2" | awk -F. '{print $NF}'`;;
+    chaine1=`echo -- "$2" | awk -F. '{print $NF}'`;;
     *)
     chaine2=0
     ;;
@@ -309,7 +311,7 @@ groupSort(){
     # f5 user
     # f6 group
     chaine1=` stat -c "%G" -- "$1"`
-    chaine2=` stat -c "%G" -- "$2"`
+    chaine2=` stat -c "%G" -- "$1"`
 
     if test "$chaine1" \< "$chaine2" 
     then
