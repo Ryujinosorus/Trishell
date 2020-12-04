@@ -397,7 +397,7 @@ tri(){
     else
         echo -e "\x1B[96m'-> "$res"\x1B[0m"
     fi
-    tri $tab "`change "$res" "$1"`"
+    tri "`change "$res" "$1"`"
 }
 
 IFS=/
