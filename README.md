@@ -44,6 +44,7 @@ Tout le temps le meme principe:
     Renvoie 2 si $1 = $2
 
 * nameSort() :
+  * test "$chaine1" \< "$chaine2" permet de comparer par rapport a l'ordre lexicographique
 * sizeSort() :
   * stat -c "%s" renvoie la taille de cette entrée.
 
@@ -52,9 +53,11 @@ Tout le temps le meme principe:
 
 * linesSort() :
   * On calcule les lignes seulement sur les entrées de type fichier, soit -f.
+  * wc -l -- "$fichier" | cut -d\  -f1 permet de récuperer le nombre de ligne
 
 * extensionSort() : 
 * typeSort() : 
+    * On regarde le type via -d -f -L -b -c -p -S
 * ownerSort() : 
   * stat -c "%U" renvoie une chaîne au nom du groupe de cette entrée.
 
@@ -62,8 +65,11 @@ Tout le temps le meme principe:
   * stat -c "%G" renvoie une chaîne au nom du groupe de cette entrée.
 
 * getLowest() :
-* getLast() : 
+    * Prend trois arguments,``` getLowest $file1 $file2 0``` compare les deux premiers arguments en fonction du premier parametre de tri (0), en cas d'egalite il y a un appelle recusive ```getLoqesst $1 $2 $(($3+1))```
+* getLast() :
+    * Prend en parametre une chaine de caractere represantant un tableaux dans lequel chaque element du tableau est séparé par un / . Parcour le tableau et affiche le plus petit grace à ``` getLowest ``` puis réitere cette opération sur le tableau sans le plus petit element tant que le tableau n'est pas vide  
 * change() : 
+    * ``` change $tab $elemm``` renvoie le tableau sans l'element $elem
 * tri() : 
 
 
