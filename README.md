@@ -2,6 +2,8 @@
 
 Projet réalisé par Es-sebbani Naim, Guestin Jason, Junhao Li.
 
+Porte: https://github.com/Ryujinosorus/Trishell
+
 ## Description
 
 Réalisation d'un programme en SHELL qui trie les entrées d'un répertoire.
@@ -44,7 +46,7 @@ Tout le temps le meme principe:
 * nameSort() :
 * sizeSort() :
   * stat -c "%s" revoie la taille de cet entrée.
-  
+
 * lastChangeSort() :
   * stat -c "%Y" revoie le dernier horodatage modifiéde cet entrée.
 
