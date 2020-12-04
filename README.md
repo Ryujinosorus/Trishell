@@ -64,6 +64,8 @@ Tout le temps le meme principe:
 * groupSort() : 
   * stat -c "%G" renvoie une chaîne correspondant au nom du groupe de cette entrée.
 
+## Fonctions principale
+
 * getLowest() :
     * Prend trois arguments,``` getLowest $file1 $file2 0``` compare les deux premiers arguments en fonction du premier parametre de tri '0', en cas d'égalité il y a un appel récursive ```getLowest $1 $2 $(($3+1))```
 * getLast() :
