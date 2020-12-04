@@ -59,19 +59,19 @@ Tout le temps le meme principe:
 * typeSort() : 
     * On regarde le type via -d -f -L -b -c -p -S
 * ownerSort() : 
-  * stat -c "%U" renvoie une chaîne au nom du groupe de cette entrée.
+  * stat -c "%U" renvoie une chaîne correspondant au nom du groupe de cette entrée.
 
 * groupSort() : 
-  * stat -c "%G" renvoie une chaîne au nom du groupe de cette entrée.
+  * stat -c "%G" renvoie une chaîne correspondant au nom du groupe de cette entrée.
 
 * getLowest() :
-    * Prend trois arguments,``` getLowest $file1 $file2 0``` compare les deux premiers arguments en fonction du premier parametre de tri (0), en cas d'egalite il y a un appelle recusive ```getLoqesst $1 $2 $(($3+1))```
+    * Prend trois arguments,``` getLowest $file1 $file2 0``` compare les deux premiers arguments en fonction du premier parametre de tri '0', en cas d'égalité il y a un appel récursive ```getLowest $1 $2 $(($3+1))```
 * getLast() :
-    * Prend en parametre une chaine de caractere represantant un tableaux dans lequel chaque element du tableau est séparé par un / . Parcour le tableau et affiche le plus petit grace à ``` getLowest ``` puis réitere cette opération sur le tableau sans le plus petit element tant que le tableau n'est pas vide  
+    * Prend en paramétre un tableau. Parcour le tableau et retourne le plus petit grace à ``` getLowest ```. 
 * change() : 
-    * ``` change $tab $elemm``` renvoie le tableau sans l'element $elem
+    * ``` change $tab $elemm``` renvoie le tableau sans l'elément $elem
 * tri() : 
-
+    * Prend en paramétre une chaine de caractére représantant un tableau dans lequel chaque élément du tableau est séparé par un / . Parcour le tableau et affiche le plus petit grace à ``` getLast ``` puis réitére cette opération sur le tableau sans le plus petit élément tant que le tableau n'est pas vide . 
 
 # Liste des fonctionnalités non réalisé
 
