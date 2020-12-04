@@ -75,6 +75,11 @@ Tout le temps le meme principe:
 * tri() : 
     * Prend en paramétre une chaine de caractére représantant un tableau dans lequel chaque élément du tableau est séparé par un / . Parcour le tableau et affiche le plus petit grace à ``` getLast ``` puis réitére cette opération sur le tableau sans le plus petit élément tant que le tableau n'est pas vide . 
 
+## Récursivité
+
+Pour la récursivité, on stocke les chemins absolus vers les dossiers séparé par ':' dans une variable ```$allFolder```
+puis on boucle récuperer ce chemin et réexecute le programme grace à $0 avec les memes parametre.
+
 # Liste des fonctionnalités non réalisé
 
 ## Tri en O(nlogn)
