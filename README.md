@@ -45,21 +45,21 @@ Tout le temps le meme principe:
 
 * nameSort() :
 * sizeSort() :
-  * stat -c "%s" revoie la taille de cet entrée.
+  * stat -c "%s" renvoie la taille de cette entrée.
 
 * lastChangeSort() :
-  * stat -c "%Y" revoie le dernier horodatage modifiéde cet entrée.
+  * stat -c "%Y" renvoie la derniere modification de cette entrée
 
 * linesSort() :
-  * On calcule des lignes seulement sur les fichiers dont leurs types sont -f.
+  * On calcule les lignes seulement sur les entrées de type fichier, soit -f.
 
 * extensionSort() : 
 * typeSort() : 
 * ownerSort() : 
-  * stat -c "%U" revoie un chaîne du nom de groupe de cet entrée.
+  * stat -c "%U" renvoie une chaîne au nom du groupe de cette entrée.
 
 * groupSort() : 
-  * stat -c "%G" revoie un chaîne du nom de groupe de cet entrée.
+  * stat -c "%G" renvoie une chaîne au nom du groupe de cette entrée.
 
 * getLowest() :
 * getLast() : 
