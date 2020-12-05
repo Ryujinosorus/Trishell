@@ -133,7 +133,7 @@ nameSort(){
         echo 1
     elif test "$1" = "$2"
     then
-        echo 22
+        echo 2
     else
         echo 0
     fi
@@ -202,28 +202,20 @@ extensionSort(){
     *.*)  
     chaine1=`echo -- "$1" | awk -F. '{print $NF}'`;;
     *)
-    chaine2=0
+    chaine1=0
     ;;
     esac
 
     case $2 in
     *.*)  
-    chaine1=`echo -- "$2" | awk -F. '{print $NF}'`;;
+    chaine2=`echo -- "$2" | awk -F. '{print $NF}'`;;
     *)
     chaine2=0
     ;;
     esac
-
-    if test "$chaine1" \< "$chaine2"
-    then
-        echo 1
-    elif test "$chaine1" = "$chaine2"
-    then
-        echo 2
-    else
-        echo 0
-    fi
+    nameSort "$chaine1" "$chaine2"
 }
+
 
 typeSort(){
     # Répertoire: valeur 1
@@ -311,7 +303,7 @@ groupSort(){
     # f5 user
     # f6 group
     chaine1=` stat -c "%G" -- "$1"`
-    chaine2=` stat -c "%G" -- "$1"`
+    chaine2=` stat -c "%G" -- "$2"`
 
     if test "$chaine1" \< "$chaine2" 
     then
