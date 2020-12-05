@@ -281,10 +281,9 @@ typeSort(){
 ownerSort(){    
     # $1 $2 est le chemin de ce fichier ou répertoire
     # compare the owner name of 2 files or folders.
-    # f5 user
-    # f6 group
-    chaine1=`stat -c '%U' -- "$1"`
-    chaine2=`stat -c '%U' -- "$2"`
+    
+    local chaine1=`stat -c '%U' -- "$1"`
+    local chaine2=`stat -c '%U' -- "$2"`
 
 
     if test "$chaine1" \< "$chaine2"
@@ -301,10 +300,9 @@ ownerSort(){
 groupSort(){
     # $1 $2 est le chemin de ce fichier ou répertoire
     # compare the group name of 2 files or folders.
-    # f5 user
-    # f6 group
-    chaine1=` stat -c "%G" -- "$1"`
-    chaine2=` stat -c "%G" -- "$2"`
+   
+    local chaine1=` stat -c "%G" -- "$1"`
+    local chaine2=` stat -c "%G" -- "$2"`
 
     if test "$chaine1" \< "$chaine2" 
     then
