@@ -114,6 +114,7 @@ sizeOfAllData=0
 allFolder=""
 for i in *
 do
+    i=`echo $i | sed 's/\?/\\\?/'`
     allData="$i/$allData"
     test -d "$i" && allFolder="`pwd`/$i:$allFolder"
     sizeOfAllData=$(($sizeOfAllData+1))
