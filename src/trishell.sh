@@ -172,13 +172,20 @@ lastChangeSort(){
 
 
 linesSort(){
-    test -d "$1" && echo "0" &&  return
-    test -d "$2" && echo "1" &&  return
-    test -p "$1" && echo "0" &&  return
-    test -p "$2" && echo "1" &&  return
+     local res1
+     local res2
 
-    local res1=`wc -l -- "$1" | cut -d\  -f1`
-    local res2=`wc -l -- "$2" | cut -d\  -f1`
+     if test -f "$1"; then
+         res1=`wc -l "$1" | cut -d' ' -f1`
+     elif test ! -f "$1"; then
+         res1=0
+     fi
+
+     if test -f "$2"; then
+         res2=`wc -l "$2" | cut -d' ' -f1`
+     elif test ! -f "$2"; then
+         res2=0
+     fi
 
     if [[ "$res1" -lt "$res2" ]]
     then
