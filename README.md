@@ -6,42 +6,46 @@ Porte: https://github.com/Ryujinosorus/Trishell
 
 ## Description
 
-Réalisation d'un programme en SHELL qui trie les entrées d'un répertoire.
+Réalisation d'un programme en SHELL qui trie les entrées d'un ou plusieurs répertoires.
 
 ## Installation du programme
 
-### Methode 1:
+### Methode 1 (Conseillé):
 
-* sudo ./build.sh
+* chmod u+x src/trishell.sh
 
 ### Methode 2:
 
-* chmod u+x trishell.sh
+* sudo ./build.sh
 
 
 # Liste des fonctionnalités demandé
 * -R : tri le contenu de l’arborescence débutant au répertoire rep. Dans ce cas on triera par rapport aux noms des entrées mais on affichera le chemin d’accès 
 * -d : tri dans l’ordre décroissant, par défaut le tri est effectué dans l’ordre croissant 
-* -nsdletpg : permet de spécifier le critère de tri utilisé. Ces critères peuvent être combinés, dans ce cas si deux fichiers sont identiques pour le premier critère, le second critère les départegera et ainsi de suite.
-*   -n : tri suivant le nom des entrées ;
-*   -s : tri suivant la taille des entrées ;
-*   -m : tri suivant la date de dernière modification des entrées ;
-*   -l : tri suivant le nombre de lignes des entrées ;
-*   -e : tri suivant l’extension des entrées (caractères se trouvant après le dernier point du nom de l’entrée ;
-*   -t : tri suivant le type de fichier (ordre : répertoire, fichier, liens, fichier spécial de type bloc, fichier spécial de type caractère, tube nommé, socket) ;
-*   -p : tri suivant le nom du propriétaire de l’entrée ;
-*   -g : tri suivant le groupe du propriétaire de l’entrée.
+* -nsdletpg : permet de spécifier le critère de tri utilisé. Ces critères peuvent être combinés, dans ce cas si deux fichiers sont identiques pour le premier critère, le second critère sera utilisé pour les départager et ainsi de suite.
+    *   -n : tri suivant le nom des entrées ;
+    *   -s : tri suivant la taille des entrées ;
+    *   -m : tri suivant la date de dernière modification des entrées ;
+    *   -l : tri suivant le nombre de lignes des entrées ;
+    *   -e : tri suivant l’extension des entrées (caractères se trouvant après le dernier point du nom de l’entrée ;
+    *   -t : tri suivant le type de fichier (ordre : répertoire, fichier, liens, fichier spécial de type bloc, fichier spécial de type caractère, tube nommé, socket) ;
+    *   -p : tri suivant le nom du propriétaire de l’entrée ;
+    *   -g : tri suivant le groupe du propriétaire de l’entrée.
 
 
 # Liste des fonctionnalités réalisé
 
 ## Fonction de tri
 
-Tout le temps le meme principe:
-    Prend 2 arguments .
-    Renvoie 1 si $1 < $2
-    Renvoie 0 si $1> $2
-    Renvoie 2 si $1 = $2
+La liste de nom des fichiers devant être trié est contenu dans une variable "allData".
+Chaque nom de fichier est séparé par un "/".
+On prend un nom de fichier puis, à la manière d'un tri par sélection, on le compare aux autres noms de fichiers avec la fonction de tri adéquate pour obtenir une liste parfaitement triée.
+
+Chaque option de tri est représenté dans le programme par une fonction et suit le même principe:
+    La fonction prend deux paramètres (deux noms de fichiers différents) puis:
+    Renvoie 1 si $1 < $2 selon les critères de tri
+    Renvoie 0 si $1> $2 selon les critères de tri
+    Renvoie 2 si $1 = $2 selon les critères de tri
 
 * nameSort() :
   * test "$chaine1" \< "$chaine2" permet de comparer par rapport a l'ordre lexicographique
@@ -64,7 +68,7 @@ Tout le temps le meme principe:
 * groupSort() : 
   * stat -c "%G" renvoie une chaîne correspondant au nom du groupe de cette entrée.
 
-## Fonctions principale
+## Fonctions principales
 
 * getLowest() :
     * Prend trois arguments,``` getLowest $file1 $file2 0``` compare les deux premiers arguments en fonction du premier parametre de tri '0', en cas d'égalité il y a un appel récursive ```getLowest $1 $2 $(($3+1))```
@@ -73,12 +77,12 @@ Tout le temps le meme principe:
 * change() : 
     * ``` change $tab $elemm``` renvoie le tableau sans l'elément $elem
 * tri() : 
-    * Prend en paramétre une chaine de caractére représantant un tableau dans lequel chaque élément du tableau est séparé par un / . Parcour le tableau et affiche le plus petit grace à ``` getLast ``` puis réitére cette opération sur le tableau sans le plus petit élément tant que le tableau n'est pas vide . 
+    * Prend en paramétre une chaine de caractére représantant un tableau dans lequel chaque élément du tableau est séparé par un /. Parcour le tableau et affiche le plus petit grace à ``` getLast ``` puis réitère cette opération sur le tableau sans le plus petit élément tant que le tableau n'est pas vide. 
 
 ## Récursivité
 
-Pour la récursivité, on stocke les chemins absolus vers les dossiers séparé par ':' dans une variable ```$allFolder```
-puis on boucle récuperer ce chemin et réexecute le programme grace à $0 avec les memes parametre.
+Pour la récursivité, on place les chemins absolus vers les dossiers séparé par ':' dans une variable ```$allFolder```
+puis on boucle récuperer ce chemin et réexecute le programme grace à $0 avec les mêmes paramètres.
 
 # Liste des fonctionnalités non réalisé
 
@@ -136,14 +140,15 @@ tri(){
 }
    
 ```
-Ceci est une representation du tri a peigne . 
-Cependant lors de la permutation d'élements, nous utilisons 3 commande sed . 
-A cela s'ajoute l'utilisation de float ainsi que des divisions . 
-Donc au final notre tri en O(n2) est plus rapide que notre tri en O(nlogn)
+Ceci est une représentation du tri a peigne. 
+Cependant lors de la permutation d'élements, nous utilisons 3 commandes sed. 
+A cela s'ajoute l'utilisation de float ainsi que de divisions. 
+Au final notre tri en O(n2) est plus rapide que notre tri en O(nlogn) qui n'est pas optimisé pour Bash en terme d'exécution.
+Nous avons donc conservé pour la version définitive du projet notre tri en O(n2).
 
 # Répartition des tâches
 
-|                     | Naim Es-sebbani  |  Jason Guestion  | Junhao Li  
+|                     | Naim Es-sebbani  |  Jason Guestin   | Junhao Li  
 |---------------------|------------------|------------------|-----------
 | Base algorithmique  |  :+1:            |                  |  
 | -n nameSort         |  :+1:            |                  |  
@@ -162,7 +167,9 @@ Donc au final notre tri en O(n2) est plus rapide que notre tri en O(nlogn)
 | Manual              |  :+1:            |                  |    
 
 
-# Poucentage du travail réalisé 
+# Pourcentage du travail réalisé 
 
 
-# Conclusion 
+# Conclusion
+
+Ce projet nous a permis de découvrir de nouvelles commandes linux et de découvrir de nouvelles façons de travailler sans l'usage des listes que nous avions généralement l'habitude d'énormément utiliser dans d'autres projets.
