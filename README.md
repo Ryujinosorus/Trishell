@@ -10,7 +10,7 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un ou plusieurs ré
 
 ## Installation du programme
 
-### Methode 1 (Conseillé):
+### Methode 1 (Recommandée):
 
 * chmod u+x src/trishell.sh
 
@@ -19,9 +19,9 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un ou plusieurs ré
 * sudo ./build.sh
 
 
-# Liste des fonctionnalités demandé
-* -R : tri le contenu de l’arborescence débutant au répertoire rep. Dans ce cas on triera par rapport aux noms des entrées mais on affichera le chemin d’accès 
-* -d : tri dans l’ordre décroissant, par défaut le tri est effectué dans l’ordre croissant 
+# Liste des fonctionnalités demandés
+* -R : tri le contenu de l’arborescence débutant au répertoire rep. Dans ce cas on triera par rapport aux noms des entrées mais on affichera le chemin d’accès. 
+* -d : tri dans l’ordre décroissant, par défaut le tri est effectué dans l’ordre croissant.
 * -nsdletpg : permet de spécifier le critère de tri utilisé. Ces critères peuvent être combinés, dans ce cas si deux fichiers sont identiques pour le premier critère, le second critère sera utilisé pour les départager et ainsi de suite.
     *   -n : tri suivant le nom des entrées ;
     *   -s : tri suivant la taille des entrées ;
@@ -37,15 +37,15 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un ou plusieurs ré
 
 ## Fonction de tri
 
-La liste de nom des fichiers devant être trié est contenu dans une variable "allData".
+La liste des fichiers devant être triés est contenu dans une variable "allData".
 Chaque nom de fichier est séparé par un "/".
 On prend un nom de fichier puis, à la manière d'un tri par sélection, on le compare aux autres noms de fichiers avec la fonction de tri adéquate pour obtenir une liste parfaitement triée.
 
 Chaque option de tri est représenté dans le programme par une fonction et suit le même principe:
     La fonction prend deux paramètres (deux noms de fichiers différents) puis:
-    Renvoie 1 si $1 < $2 selon les critères de tri
-    Renvoie 0 si $1> $2 selon les critères de tri
-    Renvoie 2 si $1 = $2 selon les critères de tri
+    renvoie 1 si $1 < $2 selon les critères de tri
+    renvoie 0 si $1> $2 selon les critères de tri
+    renvoie 2 si $1 = $2 selon les critères de tri
 
 * nameSort() :
   * test "$chaine1" \< "$chaine2" permet de comparer par rapport a l'ordre lexicographique
@@ -71,20 +71,20 @@ Chaque option de tri est représenté dans le programme par une fonction et suit
 ## Fonctions principales
 
 * getLowest() :
-    * Prend trois arguments,``` getLowest $file1 $file2 0``` compare les deux premiers arguments en fonction du premier parametre de tri '0', en cas d'égalité il y a un appel récursive ```getLowest $1 $2 $(($3+1))```
+    * Prend trois arguments,``` getLowest $file1 $file2 0``` compare les deux premiers arguments en fonction du premier paramètre de tri '0', en cas d'égalité il y a un appel récursif ```getLowest $1 $2 $(($3+1))```
 * getLast() :
-    * Prend en paramétre un tableau. Parcour le tableau et retourne le plus petit grace à ``` getLowest ```. 
+    * Prend en paramétre un tableau. Parcourt le tableau et retourne le plus petit grace à ``` getLowest ```. 
 * change() : 
-    * ``` change $tab $elemm``` renvoie le tableau sans l'elément $elem
+    * ``` change $tab $elem``` renvoie le tableau sans l'elément $elem
 * tri() : 
-    * Prend en paramétre une chaine de caractére représantant un tableau dans lequel chaque élément du tableau est séparé par un /. Parcour le tableau et affiche le plus petit grace à ``` getLast ``` puis réitère cette opération sur le tableau sans le plus petit élément tant que le tableau n'est pas vide. 
+    * Prend en paramétre une chaine de caractére représantant un tableau dans lequel chaque élément du tableau est séparé par un /. Parcourt le tableau et affiche le plus petit grace à ``` getLast ``` puis réitère cette opération sur le tableau sans le plus petit élément tant que le tableau n'est pas vide. 
 
 ## Récursivité
 
-Pour la récursivité, on place les chemins absolus vers les dossiers séparé par ':' dans une variable ```$allFolder```
-puis on boucle récuperer ce chemin et réexecute le programme grace à $0 avec les mêmes paramètres.
+Pour la récursivité, on place les chemins absolus vers les dossiers séparés par ':' dans une variable ```$allFolder```
+puis on boucle de façon à récuperer les différents chemins en réexecutant le programme grace à $0 en conservant les mêmes paramètres mais avec le chemin vers chaque sous-répertoire.
 
-# Liste des fonctionnalités non réalisé
+# Liste des fonctionnalités non réalisés
 
 ## Tri en O(nlogn)
 
