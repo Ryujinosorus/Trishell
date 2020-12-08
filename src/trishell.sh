@@ -98,17 +98,18 @@ do
         done
     fi
 done
-
 test "$path" = NULL && echo "Veuillez indiquer  un chemin" && exit 3
+
 
 if [ $sortOrder = NULL ]
 then
     sortOrder="-n"
 fi
+
 #START OF PROG
 firstPath=`pwd`
 cd "$path"
-
+currentPath=`pwd`
 allData=""
 sizeOfAllData=0
 allFolder=""
@@ -116,7 +117,7 @@ for i in *
 do
     i=`echo $i | sed 's/\?/\\\?/'`
     allData="$i/$allData"
-    test -d "$i" && allFolder="`pwd`/$i:$allFolder"
+    test -d "$i" && allFolder="$currentPath/$i:$allFolder"
     sizeOfAllData=$(($sizeOfAllData+1))
 done
 echo -e "\x1B[39m\x1B[1m`pwd`\x1B[0m"
@@ -128,6 +129,7 @@ test "$allData" = "*/" && exit 0
 #Tout le temps le meme principe
 #Renvoie 1 si $1 < $2, 0 si $1 > $2, 2 si $1=$2
 
+#tri par rapport au nom
 nameSort(){
     if test "$1" \< "$2" 
     then
@@ -140,37 +142,36 @@ nameSort(){
     fi
 }
 
+#tri par rapport a la valeur numérique
+intSort(){
+    if [[ "$1" -lt "$2" ]]
+    then
+        echo 1
+    elif [[ "$1" -eq "$2" ]]
+    then
+        echo 2
+    else
+        echo 0
+    fi
+}
+
+#tri par rapport a la taille
 sizeSort(){
     local res1=`stat -c '%s' -- "$1"`
     local res2=`stat -c '%s' -- "$2"`
 
-    if [[ "$res1" -lt "$res2" ]]
-    then
-        echo 1
-    elif [[ "$res1" -eq "$res2" ]]
-    then
-        echo 2
-    else
-        echo 0
-    fi
+    intSort $res1 $res2
 }
 
+#tri par rapport a la derniere date de modification 
 lastChangeSort(){
     local timestamp1=`stat -c '%Y' -- "$1"`
     local timestamp2=`stat -c '%Y' -- "$2"`
-    if test "$timestamp1" \< "$timestamp2"
-    then
-        echo 1
-    elif test "$timestamp1" = "$timestamp2"
-    then
-        echo 2
-    else
-        echo 0
-    fi
+
+    nameSort "$timestamp1" "$timestamp2"
 }
 
-
-
+#tri par rapport au nombre de ligne
 linesSort(){
      local res1
      local res2
@@ -187,19 +188,11 @@ linesSort(){
          res2=0
      fi
 
-    if [[ "$res1" -lt "$res2" ]]
-    then
-        echo 1
-    elif [[ "$res1" -eq "$res2" ]]
-    then
-        echo 2
-    else
-        echo 0
-    fi
+    intSort $res1 $res2
 }
 
 
-
+#tri par rapport a l'extension
 extensionSort(){
     #chaine 1 et 2 sont les extensions
     # awk -F. separate the string by dot
@@ -221,10 +214,11 @@ extensionSort(){
     chaine2=0
     ;;
     esac
+
     nameSort "$chaine1" "$chaine2"
 }
 
-
+#tri par rapport au type
 typeSort(){
     # Répertoire: valeur 1
     # Fichier: valeur 2
@@ -274,17 +268,10 @@ typeSort(){
         res2="8"
     fi
 
-    if [ "$res1" -lt "$res2" ]
-    then
-        echo 1
-    elif [ "$res1" -eq "$res2" ]
-    then
-        echo 2
-    else
-        echo 0
-    fi
+    intSort "$res1" "$res2" 
 }
 
+#tri par rapport au proprietaire
 ownerSort(){    
     # $1 $2 est le chemin de ce fichier ou répertoire
     # compare the owner name of 2 files or folders.
@@ -293,17 +280,10 @@ ownerSort(){
     local chaine2=`stat -c '%U' -- "$2"`
 
 
-    if test "$chaine1" \< "$chaine2"
-    then
-        echo 1
-    elif test "$chaine1" = "$chaine2"
-    then
-        echo 2
-    else
-        echo 0
-    fi
+    nameSort "$chaine1" "$chaine2"
 }
 
+#tri par rapport au groupe
 groupSort(){
     # $1 $2 est le chemin de ce fichier ou répertoire
     # compare the group name of 2 files or folders.
@@ -311,18 +291,14 @@ groupSort(){
     local chaine1=` stat -c "%G" -- "$1"`
     local chaine2=` stat -c "%G" -- "$2"`
 
-    if test "$chaine1" \< "$chaine2" 
-    then
-        echo 1
-    elif test "$chaine1" = "$chaine2"
-    then
-        echo 2
-    else
-        echo 0
-    fi
+    nameSort "$chaine1" "$chaine2"
 }
+#FIN FONCTION DE TRI
 
-#Fonction de base pour comparer
+
+#getLowest $elem1 $elem2
+#compare les deux parametres par rapport au tri fourni en drapeux
+#renvoie 1 si $1 est plus petit que $2, sinon 0
 getLowest(){
     if [ $3 -ge $sortLength ]
     then
@@ -365,6 +341,7 @@ getLowest(){
     fi
 }
 
+#parcour le "tableau" fourni agrument ($1) et renvoie le plus petit element
 getLast(){
     local res=`echo "$1" | cut -d'/' -f1`
     for i in $1
@@ -377,6 +354,7 @@ getLast(){
     echo "$res"
 }
 
+#suprime $1 de $2
 change(){
     local res=""
     for i in $2
@@ -388,6 +366,8 @@ change(){
     done
     echo "$res"
 }
+
+#recupere le plus petit element, l'affiche, et relance la meme fonction sans le plus petit element
 tri(){
     test -z "$1" && return  
     local res=`getLast "$1"`
@@ -400,15 +380,16 @@ tri(){
     tri "`change "$res" "$1"`"
 }
 
-IFS=/
-#getLast "$allData"
-tri "$allData"
+#modifie l'IFS et trie
+main(){
+    IFS=/
+    tri "$allData"
+    IFS=' '
+}
 
-IFS=' '
-cd "$firstPath"
 
-if test $recursively = true
-then
+recursivity(){
+    cd "$firstPath"
     IFS=":"
     for i in $allFolder
     do
@@ -419,6 +400,9 @@ then
         fi
         $0 "$i" $sortOrder -R $tmp
     done
-fi
+}
 
+
+main 
+test $recursively = true && recursivity
 IFS=$firstIFS
