@@ -48,8 +48,8 @@ You can use all this option
 Report bugs to <naimessebbani@gmail.com>."
 
 case "$1" in
--help)    printf '%s\n' "$usage"   || exit 0;;
--version) printf '%s\n' "$version" || exit 0;;
+-help)    echo "$usage"  || exit 0; exit;;
+-version) echo "$version" || exit 0; exit;;
 esac
 
 firstIFS=$IFS
@@ -57,7 +57,7 @@ IFS=$' \t\n'
 if [ $# -gt 4 ]
 then
     echo "Trop d'arguments, $usage"
-    exit 2
+    exit 1
 fi
 
 #INIT VAR
@@ -72,19 +72,19 @@ for i in "$@"
 do
     if [ "$i" = "-R" ]
     then
-        test "$recursively" = true && echo "Doublon dans les parametres -R" && exit 3
+        test "$recursively" = true && echo "Doublon dans les parametres -R" && exit 2
         recursively=true
     elif [ "$i" = "-d" ]
     then
-        test $asc = false && echo "Doublon dans les parametres" && exit 3
+        test $asc = false && echo "Doublon dans les parametres" && exit 2
         asc=false
     elif [[ "$i" =~ ^[^-] ]]
     then
-        test "$path" != NULL && echo "Doublon dans les parametres" && exit 3
-        ! test -d "$i" && echo "Chemin incorrect: $i" && exit 4
+        test "$path" != NULL && echo "Doublon dans les parametres" && exit 2
+        ! test -d "$i" && echo "Chemin incorrect: $i" && exit 3
         path="$i"
     else
-        test $sortOrder != NULL && echo "Doublon dans les parametres" && exit 3
+        test $sortOrder != NULL && echo "Doublon dans les parametres" && exit 2
         sortOrder="$i"
         sortLength=${#sortOrder}
 
@@ -93,7 +93,7 @@ do
             opt=`echo '\'$sortOrder | cut -c$a`
             if ! [[ $opt =~ [n|s|m|l|e|t|p|g] ]] 
             then
-                echo "-$opt est un paramètre de tri invalide" && exit 5
+                echo "-$opt est un paramètre de tri invalide" && exit 4
             fi
         done
     fi
