@@ -2,7 +2,7 @@
 
 Projet réalisé par Es-sebbani Naim, Guestin Jason, Junhao Li.
 
-Porte: https://github.com/Ryujinosorus/Trishell
+Git : https://github.com/Ryujinosorus/Trishell
 
 ## Description
 
