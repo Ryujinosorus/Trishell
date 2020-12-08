@@ -177,4 +177,6 @@ Junhao Li : 30 %
 
 # Conclusion
 
-Ce projet nous a permis de découvrir de nouvelles commandes linux et de découvrir de nouvelles façons de travailler sans l'usage des listes que nous avions généralement l'habitude d'énormément utiliser dans d'autres projets.
+Ce projet nous a permis de découvrir de nouvelles commandes UNIX tel que: stat, awk ou encore perl. Nous avons rencontrés de nombreux problèmes (tel que certains caractères spéciaux dans les noms de fichiers qui causaient une erreur dans le programme) mais leurs résolutions ont permis de mieux comprendre le fonctionnement en profondeur des systèmes UNIX. 
+Nous avons découvert de nouvelles façons de travailler sans l'usage des listes que nous avions généralement l'habitude d'énormément utiliser dans d'autres projets.
+Bien que nous aurions aimé mettre en place un algorithme de tri avec une meilleure complexité, nous sommes globalement satisfait du projet car toutes les fonctions implémentées sont opérationnelles.
