@@ -141,11 +141,11 @@ tri(){
 }
    
 ```
-Ceci est une représentation du tri a peigne. 
-Cependant lors de la permutation d'élements, nous utilisons 3 commandes sed. 
-A cela s'ajoute l'utilisation de float ainsi que de divisions. 
-Au final notre tri en O(n2) est plus rapide que notre tri en O(nlogn) qui n'est pas optimisé pour Bash en terme d'exécution.
-Nous avons donc conservé pour la version définitive du projet notre tri en O(n2).
+Ceci est une représentation du tri a peigne.   
+Cependant lors de la permutation d'élements, nous utilisons 3 commandes sed.   
+A cela s'ajoute l'utilisation de float ainsi que de divisions.   
+Au final notre tri en O(n2) est plus rapide que notre tri en O(nlogn) qui n'est pas optimisé pour Bash en terme d'exécution.  
+Nous avons donc conservé pour la version définitive du projet notre tri en O(n2).  
 
 # Code de retour
 
@@ -188,6 +188,7 @@ Nous avons donc conservé pour la version définitive du projet notre tri en O(n
 
 # Conclusion
 
-Ce projet nous a permis de découvrir de nouvelles commandes UNIX tel que: stat, awk ou encore perl. Nous avons rencontrés de nombreux problèmes (tel que certains caractères spéciaux dans les noms de fichiers qui causaient une erreur dans le programme) mais leurs résolutions ont permis de mieux comprendre le fonctionnement en profondeur des systèmes UNIX. 
-Nous avons découvert de nouvelles façons de travailler sans l'usage des listes que nous avions généralement l'habitude d'énormément utiliser dans d'autres projets.
-Bien que nous aurions aimé mettre en place un algorithme de tri avec une meilleure complexité, nous sommes globalement satisfait du projet car toutes les fonctions implémentées sont opérationnelles.
+Ce projet nous a permis de découvrir de nouvelles commandes UNIX tel que: stat, awk ou encore perl.  
+Nous avons rencontrés de nombreux problèmes (tel que certains caractères spéciaux dans les noms de fichiers qui causaient une erreur dans le programme) mais leurs résolutions ont permis de mieux comprendre le fonctionnement en profondeur des systèmes UNIX.  
+Nous avons découvert de nouvelles façons de travailler sans l'usage des listes que nous avions généralement l'habitude d'énormément utiliser dans d'autres projets.  
+Bien que nous aurions aimé mettre en place un algorithme de tri avec une meilleure complexité, nous sommes globalement satisfait du projet car toutes les fonctions implémentées sont opérationnelles.  
