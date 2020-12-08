@@ -153,9 +153,9 @@ Nous avons donc conservé pour la version définitive du projet notre tri en O(n
 |-------------|----------
 |0| Tout s'est bien déroulé
 |1| Trop d'arguments
-|2| DOublon dans les parametres
+|2| Doublon dans les paramètres
 |3| Le chemin spécifié est incorrect
-|4|Parametre de tri invalide
+|4| Paramètre de tri invalide
 
 
 # Répartition des tâches
