@@ -320,7 +320,7 @@ getLowest(){
         g) res=`groupSort "$1" "$2"`;;
         esac
         #Si il y a egalité on passe au tri suivant
-        if [ $res -eq 2 ]
+        if [[ "$res" -eq 2 ]]
         then
             local tmp=`expr $3 + 1`
             echo `getLowest "$1" "$2" $tmp`
@@ -345,7 +345,7 @@ getLast(){
     local res=`echo "$1" | cut -d'/' -f1`
     for i in $1
     do
-        if [ `getLowest "$i" "$res" 0` = 1 ]
+        if [[ `getLowest "$i" "$res" 0` -eq 1 ]]
         then
             res="$i"
         fi
@@ -388,7 +388,6 @@ main(){
 
 
 recursivity(){
-    cd "$firstPath"
     IFS=":"
     for i in $allFolder
     do
@@ -397,12 +396,13 @@ recursivity(){
         then 
             tmp="-d"
         fi
-        $0 "$i" $sortOrder -R $tmp
+        "$0" "$i" $sortOrder -R $tmp
     done
 }
 
 
 main 
+cd "$firstPath"
 test $recursively = true && recursivity
 IFS=$firstIFS
 exit 0
