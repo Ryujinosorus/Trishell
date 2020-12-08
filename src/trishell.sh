@@ -48,8 +48,8 @@ You can use all this option
 Report bugs to <naimessebbani@gmail.com>."
 
 case "$1" in
--help)    printf '%s\n' "$usage"   || exit 1; exit;;
--version) printf '%s\n' "$version" || exit 1; exit;;
+-help)    printf '%s\n' "$usage"   || exit 0;;
+-version) printf '%s\n' "$version" || exit 0;;
 esac
 
 firstIFS=$IFS
@@ -57,7 +57,7 @@ IFS=$' \t\n'
 if [ $# -gt 4 ]
 then
     echo "Trop d'arguments, $usage"
-    exit 1
+    exit 2
 fi
 
 #INIT VAR
@@ -72,19 +72,19 @@ for i in "$@"
 do
     if [ "$i" = "-R" ]
     then
-        test "$recursively" = true && echo "Doublon dans les parametres -R" && exit 2 
+        test "$recursively" = true && echo "Doublon dans les parametres -R" && exit 3
         recursively=true
     elif [ "$i" = "-d" ]
     then
-        test $asc = false && echo "Doublon dans les parametres" && exit 2 
+        test $asc = false && echo "Doublon dans les parametres" && exit 3
         asc=false
     elif [[ "$i" =~ ^[^-] ]]
     then
-        test "$path" != NULL && echo "Doublon dans les parametres" && exit 2 
+        test "$path" != NULL && echo "Doublon dans les parametres" && exit 3
         ! test -d "$i" && echo "Chemin incorrect: $i" && exit 4
         path="$i"
     else
-        test $sortOrder != NULL && echo "Doublon dans les parametres" && exit 2 
+        test $sortOrder != NULL && echo "Doublon dans les parametres" && exit 3
         sortOrder="$i"
         sortLength=${#sortOrder}
 
@@ -93,12 +93,12 @@ do
             opt=`echo '\'$sortOrder | cut -c$a`
             if ! [[ $opt =~ [n|s|m|l|e|t|p|g] ]] 
             then
-                echo "-$opt est un paramètre de tri invalide" && exit 2
+                echo "-$opt est un paramètre de tri invalide" && exit 5
             fi
         done
     fi
 done
-test "$path" = NULL && echo "Veuillez indiquer  un chemin" && exit 3
+test "$path" = NULL && path="."
 
 
 if [ $sortOrder = NULL ]
@@ -121,7 +121,7 @@ do
     sizeOfAllData=$(($sizeOfAllData+1))
 done
 echo -e "\x1B[39m\x1B[1m`pwd`\x1B[0m"
-test "$allData" = "*/" && exit 0 
+test "$allData" = "*/" && exit 0
 
 
 
@@ -318,7 +318,6 @@ getLowest(){
         t) res=`typeSort "$1" "$2"`;;
         p) res=`ownerSort "$1" "$2"`;;
         g) res=`groupSort "$1" "$2"`;;
-        *) echo "Le paramètre de tri spécifié est invalide" && exit 10;;
         esac
         #Si il y a egalité on passe au tri suivant
         if [ $res -eq 2 ]
@@ -406,3 +405,4 @@ recursivity(){
 main 
 test $recursively = true && recursivity
 IFS=$firstIFS
+exit 0
