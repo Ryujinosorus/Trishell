@@ -147,6 +147,17 @@ A cela s'ajoute l'utilisation de float ainsi que de divisions.
 Au final notre tri en O(n2) est plus rapide que notre tri en O(nlogn) qui n'est pas optimisé pour Bash en terme d'exécution.
 Nous avons donc conservé pour la version définitive du projet notre tri en O(n2).
 
+# Code de retour
+
+|Code de retour | valeur
+|-------------|----------
+|0| Tout s'est bien déroulé
+|1| Trop d'arguments
+|2| DOublon dans les parametres
+|3| Le chemin spécifié est incorrect
+|4|Parametre de tri invalide
+
+
 # Répartition des tâches
 
 |                     | Naim Es-sebbani  |  Jason Guestin   | Junhao Li  
