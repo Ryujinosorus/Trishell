@@ -12,11 +12,11 @@ Réalisation d'un programme en SHELL qui trie les entrées d'un ou plusieurs ré
 
 ### Methode 1 (Recommandée):
 
-* chmod u+x src/trishell.sh
+* sudo ./build.sh
 
 ### Methode 2:
 
-* sudo ./build.sh
+* chmod u+x src/trishell.sh
 
 
 # Liste des fonctionnalités demandés
