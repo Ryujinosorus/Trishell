@@ -162,21 +162,21 @@ Nous avons donc conservé pour la version définitive du projet notre tri en O(n
 
 |                     | Naim Es-sebbani  |  Jason Guestin   | Junhao Li  
 |---------------------|------------------|------------------|-----------
-| Base algorithmique  |  :+1:            |                  |  
-| -n nameSort         |  :+1:            |                  |  
-| -s sizeSort         |                  |  :+1:            |   
-| -m lastChangeSort   |                  |  :+1:            |   
-| -l linesSort        |                  |  :+1:            |   
-| -e extensionSort    |                  |                  |   :+1:   
-| -t typeSort         |                  |  :+1:            |   
-| -p ownerSort        |                  |                  |   :+1:  
-| -g groupSort        |                  |                  |   :+1:  
-| -d Décroissant      |                  |  :+1:            |   
-| -R Récursivité      |  :+1:            |                  |  
-| Testeur             |                  |                  |   :+1: 
-| Affichage           |                  |  :+1:            |  
-| Débogage            |  :+1:            |  :+1:            |    
-| Manual              |  :+1:            |                  |    
+| Base algorithmique  |  ✓               |                  |  
+| -n nameSort         |  ✓               |                  |  
+| -s sizeSort         |                  |  ✓               |   
+| -m lastChangeSort   |                  |  ✓               |   
+| -l linesSort        |                  |  ✓               |   
+| -e extensionSort    |                  |                  |   ✓
+| -t typeSort         |                  |  ✓               |   
+| -p ownerSort        |                  |                  |   ✓ 
+| -g groupSort        |                  |                  |   ✓   
+| -d Décroissant      |                  |  ✓               |   
+| -R Récursivité      |  ✓               |                  |  
+| Testeur             |                  |                  |   ✓  
+| Affichage           |                  |  ✓               |  
+| Débogage            |  ✓               |  ✓               |    
+| Manual              |  ✓               |                  |    
 
 
 # Pourcentage du travail réalisé 
