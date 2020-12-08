@@ -60,6 +60,7 @@ Chaque option de tri est représenté dans le programme par une fonction et suit
   * wc -l -- "$fichier" | cut -d\  -f1 permet de récuperer le nombre de ligne
 
 * extensionSort() : 
+   * On récupere l'extension grace a ```echo -- "$1" | awk -F. '{print $NF}'``` puis on trie par rapport a cette dernière
 * typeSort() : 
     * On regarde le type via -d -f -L -b -c -p -S
 * ownerSort() : 
@@ -169,6 +170,10 @@ Nous avons donc conservé pour la version définitive du projet notre tri en O(n
 
 # Pourcentage du travail réalisé 
 
+
+Es-sebbani : 35 %
+Guestion Jason : 35 %
+Junhao Li : 30 %
 
 # Conclusion
 
