@@ -21,7 +21,7 @@ SEE ALSO
         -help       display this help and exit
         -version    display version information and exit
 BUGS
-    Dont work with file who containt "$" or "@
+    Recursivity dont work with -R
 AUTHOR
     Written by Es-sebbani Naim, Guestin Jason, Junhao Li
 COPYRIGHT
