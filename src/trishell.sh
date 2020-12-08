@@ -54,7 +54,7 @@ esac
 
 firstIFS=$IFS
 IFS=$' \t\n'
-if [ $# -gt 4 ]
+if [[ $# -gt 4 ]]
 then
     echo "Trop d'arguments, $usage"
     exit 1
@@ -70,11 +70,11 @@ path="NULL"
 #READ ARG
 for i in "$@"
 do
-    if [ "$i" = "-R" ]
+    if [[ "$i" = "-R" ]]
     then
         test "$recursively" = true && echo "Doublon dans les parametres -R" && exit 2
         recursively=true
-    elif [ "$i" = "-d" ]
+    elif [[ "$i" = "-d" ]]
     then
         test $asc = false && echo "Doublon dans les parametres" && exit 2
         asc=false
@@ -101,7 +101,7 @@ done
 test "$path" = NULL && path="."
 
 
-if [ $sortOrder = NULL ]
+if [[ $sortOrder = NULL ]]
 then
     sortOrder="-n"
 fi
@@ -168,7 +168,7 @@ lastChangeSort(){
     local timestamp1=`stat -c '%Y' -- "$1"`
     local timestamp2=`stat -c '%Y' -- "$2"`
 
-    nameSort "$timestamp1" "$timestamp2"
+    intSort "$timestamp1" "$timestamp2"
 }
 
 #tri par rapport au nombre de ligne
@@ -300,7 +300,7 @@ groupSort(){
 #compare les deux parametres par rapport au tri fourni en drapeux
 #renvoie 1 si $1 est plus petit que $2, sinon 0
 getLowest(){
-    if [ $3 -ge $sortLength ]
+    if [[ $3 -ge $sortLength ]]
     then
         echo "1"
     else
@@ -358,7 +358,7 @@ change(){
     local res=""
     for i in $2
     do
-        if [ "$1" != "$i" ]
+        if [[ "$1" != "$i" ]]
         then
             res="$res""$i/"
         fi
