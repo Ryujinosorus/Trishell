@@ -171,9 +171,9 @@ Nous avons donc conservé pour la version définitive du projet notre tri en O(n
 # Pourcentage du travail réalisé 
 
 
-Es-sebbani : 35 %  
-Guestion Jason : 35 %  
-Junhao Li : 30 %  
+**Es-sebbani Naim** : 35 %  
+**Guestin Jason** : 35 %  
+**Junhao Li** : 30 %  
 
 # Conclusion
 
