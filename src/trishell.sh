@@ -330,7 +330,7 @@ getLowest(){
             if test $asc = "true"
             then 
                 echo $res
-            elif test $res = 1
+            elif test "$res" = 1
             then 
                 echo 0
             else
