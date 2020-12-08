@@ -21,7 +21,7 @@ SEE ALSO
         -help       display this help and exit
         -version    display version information and exit
 BUGS
-    Recursivity dont work with -R
+    Recursivity dont work with folder with : on their name
 AUTHOR
     Written by Es-sebbani Naim, Guestin Jason, Junhao Li
 COPYRIGHT
